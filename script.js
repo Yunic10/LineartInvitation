@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========== COVER MODAL & OPEN INVITATION ==========
   const coverModal = document.getElementById('coverModal');
   const openBtn = document.getElementById('openInvitation');
+  const previewModal = document.getElementById('previewModal');
+  const openDetailBtn = document.getElementById('openDetailInvitation');
   const mainContent = document.getElementById('mainContent');
   const musicToggle = document.getElementById('musicToggle');
   const bgMusic = document.getElementById('bgMusic');
@@ -72,6 +74,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   openBtn.addEventListener('click', () => {
     coverModal.classList.add('hidden');
+    if (previewModal) {
+      previewModal.classList.add('visible');
+      previewModal.setAttribute('aria-hidden', 'false');
+    }
+  });
+
+  openDetailBtn.addEventListener('click', () => {
+    if (previewModal) {
+      previewModal.classList.remove('visible');
+      previewModal.setAttribute('aria-hidden', 'true');
+    }
     mainContent.classList.add('visible');
     musicToggle.classList.add('visible');
     startSlideShow();
