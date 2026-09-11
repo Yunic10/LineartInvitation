@@ -29,10 +29,52 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById('bgMusic');
   let isMusicPlaying = false;
 
+  // ========== AUTO SLIDES ==========
+  const slides = Array.from(mainContent.children).filter(child =>
+    child.matches('.section, .footer-section')
+  );
+  let activeSlide = 0;
+  let slideTimer;
+
+  slides.forEach(slide => slide.classList.add('slide'));
+
+  function fitSlides() {
+    slides.forEach(slide => {
+      slide.style.setProperty('--slide-scale', '1');
+      const availableHeight = Math.max(1, slide.clientHeight - 32);
+      const contentHeight = Math.max(
+        slide.scrollHeight,
+        slide.firstElementChild ? slide.firstElementChild.scrollHeight : 0
+      );
+      const scale = Math.min(1, availableHeight / Math.max(1, contentHeight));
+      slide.style.setProperty('--slide-scale', String(scale));
+    });
+  }
+
+  function showSlide(index) {
+    activeSlide = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('active', slideIndex === activeSlide);
+    });
+    requestAnimationFrame(fitSlides);
+    AOS.refreshHard();
+  }
+
+  function startSlideShow() {
+    fitSlides();
+    showSlide(0);
+    slideTimer = setInterval(() => showSlide(activeSlide + 1), 10000);
+  }
+
+  window.addEventListener('resize', fitSlides);
+  window.addEventListener('load', fitSlides);
+  if (document.fonts) document.fonts.ready.then(fitSlides);
+
   openBtn.addEventListener('click', () => {
     coverModal.classList.add('hidden');
     mainContent.classList.add('visible');
     musicToggle.classList.add('visible');
+    startSlideShow();
 
     // Try to play music
     setTimeout(() => {
