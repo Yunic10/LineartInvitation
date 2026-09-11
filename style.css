@@ -674,27 +674,27 @@ button {
 /* === SECTION 1: AYAT & MUSIC === */
 .section-ayat {
   text-align: center;
-  padding-top: 80px;
+  padding-top: 36px;
 }
 
-.ornament-flourish {
-  color: var(--olive);
-  font-size: 18px;
-  letter-spacing: 8px;
-  margin-bottom: 20px;
+.ayat-akar {
+  width: 88%;
+  height: auto;
+  margin: 0 auto 32px;
+  object-fit: contain;
 }
 
 .salam-arab {
   font-family: var(--font-arabic);
-  font-size: 22px;
-  color: var(--wine);
+  font-size: 18px;
+  color: var(--olive-dark);
   margin-bottom: 24px;
   direction: rtl;
   line-height: 1.8;
 }
 
 .ayat-card {
-  padding: 32px 24px;
+  padding: 0 12px;
   position: relative;
 }
 
@@ -710,11 +710,11 @@ button {
 
 .ayat-arab {
   font-family: var(--font-arabic);
-  font-size: 20px;
-  line-height: 2;
-  color: var(--text-dark);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--wine);
   direction: rtl;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .ayat-ref {
@@ -724,30 +724,30 @@ button {
   color: var(--wine);
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 
 .ayat-terjemah {
-  font-size: 13px;
-  font-style: italic;
-  color: var(--text-medium);
-  line-height: 1.8;
-  border-top: 1px solid rgba(201, 169, 110, 0.2);
-  padding-top: 16px;
+  font-family: var(--font-hand);
+  font-size: 15px;
+  font-style: normal;
+  color: var(--olive-dark);
+  line-height: 1.65;
+  padding-top: 0;
 }
 
 /* Music Player Card */
 .music-player-card {
-  margin-top: 32px;
+  margin-top: 30px;
 }
 
 .player-inner {
-  background: linear-gradient(135deg, var(--wine-dark) 0%, var(--wine) 100%);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
-  color: var(--white);
+  background: transparent;
+  padding: 0 18px;
+  color: var(--olive-dark);
   text-align: center;
-  box-shadow: var(--shadow-elevated);
+  box-shadow: none;
 }
 
 .player-photos {
@@ -755,24 +755,31 @@ button {
   justify-content: center;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .player-photo-l,
 .player-photo-r {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: 46%;
+  height: 130px;
+  border-radius: 5px;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.4);
-  filter: grayscale(1) contrast(1.6) brightness(1.1);
+  border: none;
+  filter: none;
 }
 
 .player-label {
   font-family: var(--font-hand);
-  font-size: 16px;
-  opacity: 0.9;
-  margin-bottom: 2px;
+  font-size: 18px;
+  color: var(--olive-dark);
+  text-align: left;
+  line-height: 1.05;
+  margin: 0 0 14px 4px;
+  transform: rotate(-5deg);
+}
+
+.player-label span {
+  color: var(--wine);
 }
 
 .player-song-title {
@@ -785,17 +792,17 @@ button {
 .player-progress-bar {
   width: 100%;
   height: 3px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 2px;
-  margin-bottom: 12px;
+  background: var(--olive-dark);
+  border-radius: 0;
+  margin-bottom: 18px;
   overflow: hidden;
 }
 
 .player-progress-fill {
   height: 100%;
   width: 0%;
-  background: var(--gold-light);
-  border-radius: 2px;
+  background: var(--olive);
+  border-radius: 0;
   transition: width 0.3s;
 }
 
@@ -803,14 +810,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 18px;
   margin-bottom: 10px;
 }
 
 .player-btn {
-  color: var(--white);
-  font-size: 16px;
-  opacity: 0.7;
+  color: var(--olive-dark);
+  font-size: 20px;
+  opacity: 1;
   transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -820,10 +827,11 @@ button {
 }
 
 .player-btn-play {
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  background: var(--olive);
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -836,8 +844,49 @@ button {
 }
 
 .player-hint {
-  font-size: 12px;
-  opacity: 0.6;
+  font-family: var(--font-hand);
+  font-size: 14px;
+  color: var(--wine);
+  opacity: 1;
+}
+
+/* Keep the ayat/player layout stable across narrow viewports. */
+.section-ayat,
+.section-ayat .container,
+.section-ayat .ayat-card,
+.section-ayat .music-player-card,
+.section-ayat .player-inner {
+  width: 100%;
+  min-width: 0;
+}
+
+.section-ayat .ayat-card,
+.section-ayat .player-inner {
+  overflow: hidden;
+}
+
+.section-ayat .ayat-arab,
+.section-ayat .ayat-terjemah,
+.section-ayat .ayat-ref,
+.section-ayat .player-label,
+.section-ayat .player-hint {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.section-ayat .player-photos,
+.section-ayat .player-controls {
+  width: 100%;
+  min-width: 0;
+}
+
+.section-ayat .player-photo-l,
+.section-ayat .player-photo-r {
+  min-width: 0;
+}
+
+.section-ayat .player-controls {
+  flex-wrap: nowrap;
 }
 
 .pulse-text {
