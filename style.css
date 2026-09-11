@@ -901,22 +901,43 @@ button {
 /* === SECTION 2: PROFIL MEMPELAI === */
 .section-profil {
   text-align: center;
-  background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-cream-dark) 100%);
+  background: var(--bg-cream);
+}
+
+.profil-akar {
+  display: block;
+  width: 78%;
+  height: auto;
+  margin: 0 auto 22px;
 }
 
 .profil-intro {
-  font-size: 14px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
   color: var(--text-medium);
   margin-bottom: 24px;
   line-height: 1.8;
+  font-weight: 400;
 }
-
 .profil-couple-wrapper {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
   gap: 10px;
+  padding-top: 24px;
+}
+
+.profil-love {
+  position: absolute;
+  left: 50%;
+  top: 102px;
+  width: 25%;
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* Red String SVG */
@@ -950,121 +971,125 @@ button {
 }
 
 .profil-card {
-  background: var(--white);
-  border-radius: var(--radius-md);
+  background: transparent !important;
+  border-radius: 0;
   padding: 20px 10px 16px;
-  box-shadow: var(--shadow-card);
+  box-shadow: none;
   width: 100%;
   max-width: none;
   position: relative;
   z-index: 2;
-  border: 1px solid rgba(201, 169, 110, 0.15);
+  border: none;
+}
+
+.profil-card:first-of-type {
+  transform: translateY(-22px);
+}
+
+.profil-card-groom .profil-frame {
+  transform: translateY(40px) !important;
 }
 
 .profil-frame {
-  width: 88px;
-  height: 88px;
+  width: 155px;
+  height: 180px;
   margin: 0 auto 12px;
   position: relative;
-  border-radius: 50%;
-  padding: 4px;
-  background: linear-gradient(135deg, var(--gold), var(--wine-light), var(--gold));
+  padding: 0;
+  background: none;
+  overflow: visible;
 }
 
-.profil-frame-ornament {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--gold);
-  z-index: 2;
-}
-
-.profil-frame-ornament.tl { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
-.profil-frame-ornament.tr { top: -2px; right: -2px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
-.profil-frame-ornament.bl { bottom: -2px; left: -2px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
-.profil-frame-ornament.br { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
-
+/* FOTO DI BELAKANG BINGKAI */
 .profil-photo {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 33px);
   object-fit: cover;
-  border-radius: 50%;
-  filter: grayscale(1) contrast(1.6) brightness(1.1);
+  object-position: center;
+  border-radius: 38% 38% 30% 30%;
 }
+
+/* BINGKAI DI DEPAN FOTO */
+.profil-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("element/bingkai.png") center / 100% 100% no-repeat;
+  z-index: 2;
+  pointer-events: none;
+}
+.profil-frame-ornament {
+  display: none;
+}
+
+.profil-frame-ornament.tl { top: -2px; left: -2px; }
+.profil-frame-ornament.tr { top: -2px; right: -2px; }
+.profil-frame-ornament.bl { bottom: -2px; left: -2px; }
+.profil-frame-ornament.br { bottom: -2px; right: -2px; }
 
 .profil-name {
   font-family: var(--font-script);
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--wine);
-  line-height: 1.1;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
+  line-height: 1.2;
+  min-height: auto;
+  margin: 4px 0 8px;
+  text-align: center;
 }
 
 .profil-parent {
-  font-size: 10px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 13px;
   color: var(--text-light);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 4px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  margin: 0 0 2px;
+  line-height: 1.4;
 }
 
 .profil-parent-names {
-  font-family: var(--font-hand);
-  font-size: 14px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 16px;
   color: var(--text-medium);
-  margin-bottom: 12px;
-  line-height: 1.5;
+  margin: 0 0 12px;
+  line-height: 1.35;
+  text-align: center;
 }
 
 .profil-address {
-  font-size: 9px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 12px;
   color: var(--text-light);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 4px;
-  margin-bottom: 12px;
-  line-height: 1.5;
+  gap: 5px;
+  margin: 0 auto 12px;
+  line-height: 1.4;
+  max-width: 170px;
+  text-align: left;
+  position: relative;
+  left: 6px;
 }
 
 .profil-address svg {
   flex-shrink: 0;
+  width: 11px;
+  height: 11px;
   margin-top: 2px;
 }
 
-.profil-child-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  background: var(--bg-cream);
-  border: 1px dashed var(--gold);
-  border-radius: 20px;
-  font-family: var(--font-hand);
-  font-size: 13px;
-  color: var(--olive);
+.profil-address span {
+  display: block;
 }
 
 .profil-ampersand {
-  font-family: var(--font-script);
-  font-size: 30px;
-  color: var(--olive);
-  z-index: 3;
-  position: absolute;
-  top: 116px;
-  left: 50%;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateX(-50%);
-  background: var(--bg-cream-dark);
-  border: 1px solid var(--gold);
-  border-radius: 50%;
+  display: none;
 }
 
 /* === SECTION 3: SAVE THE DATE === */
