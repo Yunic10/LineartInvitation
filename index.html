@@ -78,13 +78,13 @@
   </div>
 </div>
 
-<!-- ========== FLOATING MUSIC TOGGLE ========== -->
-<button id="musicToggle" class="music-toggle" aria-label="Toggle Music">
-  <span id="musicIcon">🔇</span>
-</button>
-
 <!-- ========== MAIN INVITATION ========== -->
 <main id="mainContent" class="main-content">
+
+  <!-- ========== FLOATING MUSIC TOGGLE ========== -->
+  <button id="musicToggle" class="music-toggle" aria-label="Toggle Music">
+    <span id="musicIcon">🔇</span>
+  </button>
 
   <!-- ===== SECTION 1: AYAT AL-QUR'AN & MUSIC PLAYER ===== -->
   <section id="sectionAyat" class="section section-ayat">
@@ -136,6 +136,7 @@
       </p>
 
       <div class="profil-couple-wrapper" data-aos="fade-up" data-aos-delay="100">
+        <img class="profil-string" src="element/tali.png" alt="">
         <img class="profil-love" src="element/love.png" alt="">
 
         <!-- Bride -->
@@ -198,177 +199,271 @@
     </div>
   </section>
 
-  <!-- ===== SECTION 3: SAVE THE DATE & COUNTDOWN ===== -->
-  <section id="sectionDate" class="section section-date">
-    <div class="container">
-      <div class="disco-ball-wrapper" data-aos="zoom-in">
-        <div class="disco-ball">
-          <div class="disco-ball-shine"></div>
-          <div class="disco-ball-shine s2"></div>
-          <div class="disco-ball-shine s3"></div>
+ <!-- ===== SECTION 3: SAVE THE DATE ===== -->
+<section id="sectionDate" class="section section-date">
+  <div class="container">
+
+    <div class="save-date-scene" data-aos="fade-up">
+
+      <h2 class="save-the-date-title">
+        Save the Date
+      </h2>
+
+      <div class="save-date-cal-wrap">
+
+        <!-- CALENDAR -->
+        <div class="mini-calendar">
+
+          <div class="cal-header">
+            <svg
+              class="cal-header-icon"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M3 10h18M8 3v4M16 3v4"/>
+            </svg>
+
+            <span>Oktober 2026</span>
+          </div>
+
+          <div class="cal-strip">
+
+            <!-- MINGGU -->
+            <div class="cal-col">
+              <span class="cal-day-name">
+                Minggu
+              </span>
+
+              <span class="cal-day">
+                4
+              </span>
+            </div>
+
+            <!-- SENIN -->
+            <div class="cal-col cal-col-heart">
+
+              <span class="cal-day-name">
+                Senin
+              </span>
+
+              <span
+                class="cal-heart"
+                title="Akad Nikah"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+
+                <span>5</span>
+              </span>
+
+            </div>
+
+            <!-- SELASA -->
+            <div class="cal-col cal-col-overlap">
+
+              <span class="cal-day-name">
+                Selasa
+              </span>
+
+              <span class="cal-day">
+                6
+              </span>
+
+            </div>
+
+          </div>
         </div>
-        <div class="disco-ball-string"></div>
+
+        <!-- LAMPION / DISCO BALL -->
+        <img
+          class="disco-ball-img"
+          src="element/lampion.png"
+          alt=""
+        >
+
       </div>
 
-      <h2 class="save-the-date-title" data-aos="fade-up">Save the Date</h2>
+      <!-- DATE -->
+      <p class="save-date-numeric">
+        05.10.2026
+      </p>
 
-      <div class="mini-calendar" data-aos="fade-up" data-aos-delay="100">
-        <div class="cal-header">Oktober 2026</div>
-        <div class="cal-days">
-          <span class="cal-day-name">Sn</span>
-          <span class="cal-day-name">Sl</span>
-          <span class="cal-day-name">Rb</span>
-          <span class="cal-day-name">Km</span>
-          <span class="cal-day-name">Jm</span>
-          <span class="cal-day-name">Sb</span>
-          <span class="cal-day-name">Mg</span>
-        </div>
-        <div class="cal-grid">
-          <!-- October 2026 starts on Thursday -->
-          <span class="cal-day empty"></span>
-          <span class="cal-day empty"></span>
-          <span class="cal-day empty"></span>
-          <span class="cal-day empty"></span>
-          <span class="cal-day">1</span>
-          <span class="cal-day">2</span>
-          <span class="cal-day">3</span>
-          <span class="cal-day">4</span>
-          <span class="cal-day highlight love-day" title="Akad Nikah">5</span>
-          <span class="cal-day">6</span>
-          <span class="cal-day">7</span>
-          <span class="cal-day">8</span>
-          <span class="cal-day">9</span>
-          <span class="cal-day">10</span>
-          <span class="cal-day">11</span>
-          <span class="cal-day">12</span>
-          <span class="cal-day">13</span>
-          <span class="cal-day">14</span>
-          <span class="cal-day">15</span>
-          <span class="cal-day">16</span>
-          <span class="cal-day">17</span>
-          <span class="cal-day">18</span>
-          <span class="cal-day">19</span>
-          <span class="cal-day">20</span>
-          <span class="cal-day">21</span>
-          <span class="cal-day">22</span>
-          <span class="cal-day">23</span>
-          <span class="cal-day">24</span>
-          <span class="cal-day">25</span>
-          <span class="cal-day">26</span>
-          <span class="cal-day">27</span>
-          <span class="cal-day">28</span>
-          <span class="cal-day">29</span>
-          <span class="cal-day">30</span>
-          <span class="cal-day">31</span>
-        </div>
-      </div>
-
-      <div class="countdown-wrapper" data-aos="fade-up" data-aos-delay="200">
-        <p class="countdown-label">Menghitung Hari Menuju Hari Bahagia</p>
-        <div class="countdown-grid">
-          <div class="countdown-item">
-            <span class="countdown-num" id="countDays">00</span>
-            <span class="countdown-unit">Hari</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-item">
-            <span class="countdown-num" id="countHours">00</span>
-            <span class="countdown-unit">Jam</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-item">
-            <span class="countdown-num" id="countMinutes">00</span>
-            <span class="countdown-unit">Menit</span>
-          </div>
-          <div class="countdown-sep">:</div>
-          <div class="countdown-item">
-            <span class="countdown-num" id="countSeconds">00</span>
-            <span class="countdown-unit">Detik</span>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+
+  </div>
+</section>
 
   <!-- ===== SECTION 4: VENUE & TIMELINE ===== -->
-  <section id="sectionVenue" class="section section-venue">
-    <div class="container">
-      <div class="venue-illustration" data-aos="fade-down">
-        <div class="chandelier">🏮</div>
+<section id="sectionVenue" class="section section-venue">
+
+  <div class="container">
+
+    <!-- LAMPU / CHANDELIER -->
+    <div class="venue-illustration" data-aos="fade-down">
+      <img
+        src="element/lampu.png"
+        class="venue-lampu"
+        alt="Lampu"
+      >
+    </div>
+
+
+    <!-- TITLE -->
+    <h2 class="venue-title" data-aos="fade-up">
+      Venue<br>
+      &amp; Timeline
+    </h2>
+
+
+    <!-- DETAIL ACARA -->
+    <div class="venue-content" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- AKAD -->
+      <div class="venue-event">
+
+        <h3 class="venue-event-title">
+          Akad Nikah
+        </h3>
+
+        <p class="venue-date">
+          Rabu, 12 Agustus 2026
+        </p>
+
+        <p class="venue-time">
+          🕘 &nbsp;09.00 WIB
+        </p>
+
       </div>
 
-      <h2 class="venue-title" data-aos="fade-up">Detail Acara</h2>
 
-      <div class="venue-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="venue-card-badge">AKAD NIKAH</div>
-        <div class="venue-icon">💒</div>
-        <div class="venue-datetime">
-          <p class="venue-day">Senin</p>
-          <p class="venue-date-full">05 Oktober 2026</p>
-          <p class="venue-time">Pukul 08.00 WIB - Selesai</p>
-        </div>
-        <div class="venue-divider"></div>
-        <div class="venue-location">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B1436" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div>
-            <p class="venue-addr-label">Lokasi Akad & Resepsi</p>
-            <p class="venue-addr">Kediaman Mempelai Wanita<br>Dk. Sijampang 01 RT 05 RW 03 No. 13<br>Ragatunjung, Paguyangan, Brebes</p>
-          </div>
-        </div>
-        <a href="https://maps.app.goo.gl/doxuaWjjucoXeCAs6" target="_blank" rel="noopener" class="venue-map-btn">
-          <span>📍</span> Buka Google Maps
-        </a>
+      <!-- LOKASI -->
+      <div class="venue-location">
+
+        <h3 class="venue-location-title">
+          Lokasi
+        </h3>
+
+        <p class="venue-address">
+          Dusun 1 RT 02 RW 01 Kelurahan Purwodadi<br>
+          Kecamatan Trimurjo Kabupaten Lampung Tengah
+        </p>
+
+      </div>
+
+
+      <!-- GOOGLE MAPS -->
+      <a
+        href="https://maps.app.goo.gl/doxuaWjjucoXeCAs6"
+        target="_blank"
+        rel="noopener"
+        class="venue-map-btn"
+      >
+        Gmaps
+      </a>
+
+    </div>
+
+
+    <!-- MEJA MAKAN -->
+    <div class="venue-table-illustration" data-aos="fade-up">
+
+      <img
+        src="element/mejamakan.png"
+        class="venue-mejamakan"
+        alt="Meja makan"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="sectionStory" class="section section-story">
+
+  <div class="container">
+
+    <!-- FOTO -->
+    <div class="story-polaroids">
+      <div class="polaroid p1">
+        <img src="img/3.jpeg" alt="Photo 1">
+      </div>
+
+      <div class="polaroid p2">
+        <img src="img/4.jpeg" alt="Photo 2">
+      </div>
+
+      <div class="polaroid p3">
+        <img src="img/5.jpeg" alt="Photo 3">
       </div>
     </div>
-  </section>
 
-  <!-- ===== SECTION 5: LOVE STORY ===== -->
-  <section id="sectionStory" class="section section-story">
-    <div class="container">
-      <h2 class="story-title" data-aos="fade-up">Our Story</h2>
-      <p class="story-subtitle" data-aos="fade-up" data-aos-delay="50">Benang merah yang mengikat hati kami</p>
+    <!-- JUDUL -->
+    <h2 class="story-title">Our Story</h2>
 
-      <div class="story-polaroids" data-aos="fade-up" data-aos-delay="100">
-        <div class="polaroid p1"><img src="img/3.jpeg" alt="Photo 1"></div>
-        <div class="polaroid p2"><img src="img/4.jpeg" alt="Photo 2"></div>
-        <div class="polaroid p3"><img src="img/5.jpeg" alt="Photo 3"></div>
-      </div>
+    <!-- TIMELINE -->
+    <div class="story-timeline">
 
-      <div class="story-timeline">
-        <div class="timeline-line"></div>
+      <div class="timeline-line"></div>
 
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-pin">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="#C0392B"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div class="timeline-content">
-            <span class="timeline-date">The Beginning</span>
-            <p>Tidak pernah kami tahu, bahwa sebuah pertemanan masa kecil yang dipertemukan kembali ketika umur sudah seperempat abad bisa tumbuh rasa dengan perlahan. Kami mulai mengerti bahwa mencintai bukan hanya tentang ingin memiliki, tetapi tentang kesediaan untuk bertahan, menunggu, dan memperjuangkan seseorang dengan sepenuh hati.</p>
-          </div>
-        </div>
+      <div class="timeline-item">
+        <div class="timeline-pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.5-8.28C.5 9.5 2 5 6 5c2 0 3.5 1.2 4 2.4C10.5 6.2 12 5 14 5c4 0 5.5 4.5 3.5 7.72C18.7 16.65 12 21 12 21z"/></svg></div>
 
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-pin">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="#C0392B"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div class="timeline-content">
-            <span class="timeline-date">The Journey</span>
-            <p>Jarak kemudian menjadi bagian dari perjalanan kami. Ada rindu yang hanya dapat disampaikan melalui suara, ada pertemuan yang harus menunggu waktu. Namun dari jarak itu, kami belajar bahwa cinta bukan hanya tentang kedekatan, melainkan tentang percaya dan tetap memilih satu sama lain, meski tak selalu dapat bersama. Di sisi lain, ada seorang laki-laki yang terus berusaha menata hidupnya — bekerja, berjuang, dan mempersiapkan masa depan, bukan kerana semuanya telah sempurna, tetapi kerana ada satu niat yang ingin ia tunaikan.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-pin">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="#C0392B"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <div class="timeline-content">
-            <span class="timeline-date">The Promise</span>
-            <p>Dan kini, setelah sekian lama menunggu, kami tidak lagi hanya ingin bertemu ketika rindu datang. Kami ingin pulang ke rumah yang sama, berjalan dalam satu arah, saling menggenggam dalam suka dan duka, serta menemani satu sama lain hingga akhir usia. Sesuatu yang diperjuangkan dengan tulus akan menemukan jalannya. 🤍</p>
-          </div>
+        <div class="timeline-content">
+          <span class="timeline-date">THE BEGINNING</span>
+          <p>
+            Awalnya, kami hanyalah dua orang yang sekadar saling mengenal.
+            Tak banyak percakapan dan tak ada cerita panjang.
+          </p>
         </div>
       </div>
+
+      <div class="timeline-item">
+        <div class="timeline-pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.5-8.28C.5 9.5 2 5 6 5c2 0 3.5 1.2 4 2.4C10.5 6.2 12 5 14 5c4 0 5.5 4.5 3.5 7.72C18.7 16.65 12 21 12 21z"/></svg></div>
+
+        <div class="timeline-content">
+          <span class="timeline-date">THE JOURNEY</span>
+          <p>
+            Waktu perlahan mempertemukan kami pada momen-momen kecil yang
+            istimewa. Dari obrolan singkat tumbuh rasa nyaman yang tak terduga.
+            Tanpa sadar, benih cinta pun mulai bersemi di antara kami.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.5-8.28C.5 9.5 2 5 6 5c2 0 3.5 1.2 4 2.4C10.5 6.2 12 5 14 5c4 0 5.5 4.5 3.5 7.72C18.7 16.65 12 21 12 21z"/></svg></div>
+
+        <div class="timeline-content">
+          <span class="timeline-date">THE PROMISE</span>
+          <p>
+            Perasaan yang tulus ini akhirnya menuntun kami pada sebuah
+            keputusan besar dalam hidup. Kini kami memilih untuk saling
+            menggenggam erat, mengikat janji suci, dan menapaki masa depan
+            bersama selamanya.
+          </p>
+        </div>
+      </div>
+
     </div>
-  </section>
+
+  </div>
+
+  <!-- ILUSTRASI PALING BAWAH -->
+  <div class="story-janji">
+    <img src="element/janji.png" class="janji-img" alt="">
+  </div>
+
+</section>
 
   <!-- ===== SECTION 6: AMPLOP DIGITAL / WEDDING GIFT ===== -->
   <section id="sectionGift" class="section section-gift">
@@ -380,32 +475,90 @@
         Bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih kepada kedua mempelai, dapat melalui tautan berikut:
       </p>
 
-      <div class="envelope-container" data-aos="flip-up" data-aos-delay="200">
-        <!-- Envelope 1 -->
-        <div class="envelope-card">
-          <div class="envelope-flap"></div>
-          <div class="envelope-body">
-            <div class="bank-logo bca-logo">BCA</div>
-            <p class="rekening-name">Khusnul Khotimah</p>
-            <p class="rekening-number">0670973891</p>
-            <button class="copy-btn" data-rekening="0670973891">
-              📋 Salin No. Rekening
+      <div class="gift-envelope" data-aos="flip-up" data-aos-delay="200">
+        <div class="envelope-back"></div>
+        <div class="envelope-mouth"></div>
+        <div class="envelope-left-fold"></div>
+        <div class="envelope-right-fold"></div>
+
+        <div class="envelope-paper">
+
+          <div class="gift-bank-entry">
+
+            <div class="gift-bank-row">
+
+              <svg class="gift-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 10.5 12 4l9 6.5"/>
+                <path d="M4.5 10.5V20h15v-9.5"/>
+                <path d="M9.5 20v-6h5v6"/>
+                <path d="M2 20h20"/>
+              </svg>
+
+              <span class="gift-bank-name">
+                BCA
+              </span>
+
+              <span class="gift-account-number">
+                0670973891
+              </span>
+
+            </div>
+
+            <p class="gift-account-name">
+              a.n. Khusnul Khotimah
+            </p>
+
+            <button
+              type="button"
+              class="copy-btn"
+              data-rekening="0670973891">
+              Salin
             </button>
+
+          </div>
+
+
+ 
+
+
+          <!-- REKENING 2 -->
+
+          <div class="gift-bank-entry">
+
+            <div class="gift-bank-row">
+
+              <svg class="gift-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 10.5 12 4l9 6.5"/>
+                <path d="M4.5 10.5V20h15v-9.5"/>
+                <path d="M9.5 20v-6h5v6"/>
+                <path d="M2 20h20"/>
+              </svg>
+
+              <span class="gift-bank-name">
+                BCA
+              </span>
+
+              <span class="gift-account-number">
+                7655410341
+              </span>
+
+            </div>
+
+            <p class="gift-account-name">
+              a.n. Abdul Rozak
+            </p>
+
+            <button
+              type="button"
+              class="copy-btn"
+              data-rekening="7655410341">
+              Salin
+            </button>
+
           </div>
         </div>
 
-        <!-- Envelope 2 -->
-        <div class="envelope-card">
-          <div class="envelope-flap"></div>
-          <div class="envelope-body">
-            <div class="bank-logo bca-logo">BCA</div>
-            <p class="rekening-name">Abdul Rozak</p>
-            <p class="rekening-number">7655410341</p>
-            <button class="copy-btn" data-rekening="7655410341">
-              📋 Salin No. Rekening
-            </button>
-          </div>
-        </div>
+        <div class="envelope-front-flap"></div>
       </div>
     </div>
   </section>
@@ -453,7 +606,7 @@
 
       <!-- Guest Wall -->
       <div class="guest-wall" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="wall-title">Pesan & Doa</h3>
+        <h3 class="wall-title">Pesan & Doa <span class="wall-count" id="wallCount">0</span></h3>
         <div id="guestWall" class="wall-list">
           <!-- Messages will be added here by JS -->
           <div class="wall-empty" id="wallEmpty">
@@ -464,17 +617,69 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer-section">
-    <div class="container">
-      <div class="footer-ornament">✦ ✦ ✦</div>
-      <p class="footer-thankyou">Terima kasih atas doa dan restu Bapak/Ibu/Saudara/i</p>
-      <p class="footer-couple">Khusnul <span>&</span> Abdul</p>
-      <p class="footer-date">05 Oktober 2026</p>
-      <p class="footer-verse">"Dan di antara tanda-tanda-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri"</p>
-      <div class="footer-ornament">🤍</div>
+  <!-- ===== COUNTDOWN ===== -->
+<section id="sectionCountdown" class="countdown-section">
+
+  <div class="countdown-container">
+
+    <!-- Cincin -->
+    <img
+      src="element/cincin.png"
+      alt="Cincin Pernikahan"
+      class="countdown-ring"
+    >
+
+    <!-- Judul -->
+    <h2 class="countdown-title">
+      Counting Days
+    </h2>
+
+    <!-- Countdown -->
+    <div class="countdown-wrapper">
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="countDays">00</span>
+        <span class="countdown-label">HARI</span>
+      </div>
+
+      <span class="countdown-separator">:</span>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="countHours">00</span>
+        <span class="countdown-label">JAM</span>
+      </div>
+
+      <span class="countdown-separator">:</span>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="countMinutes">00</span>
+        <span class="countdown-label">MENIT</span>
+      </div>
+
+      <span class="countdown-separator">:</span>
+
+      <div class="countdown-item">
+        <span class="countdown-number" id="countSeconds">00</span>
+        <span class="countdown-label">DETIK</span>
+      </div>
+
     </div>
-  </footer>
+
+    <!-- Tanggal -->
+    <p class="countdown-date">
+      05.10.2026
+    </p>
+
+  </div>
+
+</section>
+
+  <!-- ========== SLIDE NAVIGATION ========== -->
+  <nav id="slideNav" class="slide-nav hidden" aria-label="Navigasi bagian undangan">
+    <button type="button" class="slide-arrow prev" id="prevSlide" aria-label="Bagian sebelumnya">&#8249;</button>
+    <button type="button" class="slide-arrow next" id="nextSlide" aria-label="Bagian berikutnya">&#8250;</button>
+    <div id="slideDots" class="slide-dots" role="tablist" aria-label="Indikator bagian"></div>
+  </nav>
 
 </main>
 

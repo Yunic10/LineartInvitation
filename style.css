@@ -5,8 +5,8 @@
 
 /* === CSS VARIABLES === */
 :root {
-  --bg-cream: #FAF5E8;
-  --bg-cream-dark: #F0E9D5;
+  --bg-cream: #fffbe5;
+  --bg-cream-dark: #fffbe5;
   --wine: #6B1436;
   --wine-light: #8B1E4A;
   --wine-dark: #4E0F28;
@@ -52,7 +52,7 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   min-height: 100vh;
 }
 
@@ -615,9 +615,9 @@ button {
   background: var(--bg-cream);
   width: 100%;
   max-width: 430px;
-  height: 100svh;
+  height: auto;
   min-height: 100svh;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -899,6 +899,8 @@ button {
 }
 
 /* === SECTION 2: PROFIL MEMPELAI === */
+
+
 .section-profil {
   text-align: center;
   background: var(--bg-cream);
@@ -919,11 +921,12 @@ button {
   line-height: 1.8;
   font-weight: 400;
 }
+
 .profil-couple-wrapper {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: stretch;
+  align-items: start;
   gap: 10px;
   padding-top: 24px;
 }
@@ -936,49 +939,34 @@ button {
   max-width: none;
   height: auto;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 4;
   pointer-events: none;
 }
 
-/* Red String SVG */
-.red-string-svg {
+/* ================================
+   CARD MEMPELAI
+================================ */
+
+.profil-string {
   position: absolute;
-  top: 90px;
+  top: 105px;
   left: 0;
-  right: 0;
   width: 100%;
-  height: 60px;
+  height: auto;
   z-index: 1;
   pointer-events: none;
 }
 
-.red-string-path {
-  stroke-dasharray: 8, 4;
-  animation: dashMove 3s linear infinite;
-}
-
-@keyframes dashMove {
-  to { stroke-dashoffset: -24; }
-}
-
-.red-string-heart {
-  animation: heartBeatSmall 1.5s ease-in-out infinite;
-}
-
-@keyframes heartBeatSmall {
-  0%, 100% { transform-origin: center; transform: scale(1); }
-  50% { transform-origin: center; transform: scale(1.15); }
-}
 
 .profil-card {
   background: transparent !important;
   border-radius: 0;
-  padding: 20px 10px 16px;
+  padding: 0 10px 16px;
   box-shadow: none;
   width: 100%;
   max-width: none;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   border: none;
 }
 
@@ -987,23 +975,28 @@ button {
 }
 
 .profil-card-groom .profil-frame {
-  transform: translateY(40px) !important;
+  transform: translateY(65px);
+  margin-bottom: 95px;
 }
+
+
+/* ================================
+   BINGKAI FOTO
+================================ */
 
 .profil-frame {
   width: 155px;
   height: 180px;
-  margin: 0 auto 12px;
+  margin: 0 auto 30px;
   position: relative;
   padding: 0;
-  background: none;
+  background: transparent;
   overflow: visible;
+  z-index: 5;
 }
 
-/* FOTO DI BELAKANG BINGKAI */
 .profil-photo {
   position: absolute;
-  z-index: 1;
   top: 15px;
   left: 16px;
   width: calc(100% - 32px);
@@ -1011,25 +1004,36 @@ button {
   object-fit: cover;
   object-position: center;
   border-radius: 38% 38% 30% 30%;
+  z-index: 6;
 }
 
-/* BINGKAI DI DEPAN FOTO */
+.profil-frame::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 33px);
+  background: var(--bg-cream);
+  border-radius: 38% 38% 30% 30%;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .profil-frame::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("element/bingkai.png") center / 100% 100% no-repeat;
-  z-index: 2;
+  background: url("element/bingkai.png")
+    center / 100% 100%
+    no-repeat;
+  z-index: 7;
   pointer-events: none;
 }
-.profil-frame-ornament {
-  display: none;
-}
 
-.profil-frame-ornament.tl { top: -2px; left: -2px; }
-.profil-frame-ornament.tr { top: -2px; right: -2px; }
-.profil-frame-ornament.bl { bottom: -2px; left: -2px; }
-.profil-frame-ornament.br { bottom: -2px; right: -2px; }
+/* ================================
+   NAMA
+================================ */
 
 .profil-name {
   font-family: var(--font-script);
@@ -1037,10 +1041,16 @@ button {
   font-weight: 700;
   color: var(--wine);
   line-height: 1.2;
-  min-height: auto;
-  margin: 4px 0 8px;
+
+  margin: 0 0 10px;
+  padding: 0;
+
   text-align: center;
 }
+
+/* ================================
+   ORANG TUA
+================================ */
 
 .profil-parent {
   font-family: 'Patrick Hand', cursive;
@@ -1048,6 +1058,7 @@ button {
   color: var(--text-light);
   text-transform: none;
   letter-spacing: 0.5px;
+
   margin: 0 0 2px;
   line-height: 1.4;
 }
@@ -1056,22 +1067,32 @@ button {
   font-family: 'Patrick Hand', cursive;
   font-size: 16px;
   color: var(--text-medium);
+
   margin: 0 0 12px;
   line-height: 1.35;
+
   text-align: center;
 }
+
+/* ================================
+   ALAMAT
+================================ */
 
 .profil-address {
   font-family: 'Patrick Hand', cursive;
   font-size: 12px;
   color: var(--text-light);
+
   display: flex;
   align-items: flex-start;
   justify-content: center;
+
   gap: 5px;
   margin: 0 auto 12px;
+
   line-height: 1.4;
   max-width: 170px;
+
   text-align: left;
   position: relative;
   left: 6px;
@@ -1088,619 +1109,1906 @@ button {
   display: block;
 }
 
+/* Ampersand tidak digunakan */
 .profil-ampersand {
   display: none;
 }
 
-/* === SECTION 3: SAVE THE DATE === */
+/* =========================================================
+   SECTION 3 : SAVE THE DATE
+   ========================================================= */
+
 .section-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   text-align: center;
-  background: linear-gradient(180deg, var(--bg-cream-dark) 0%, var(--bg-cream) 100%);
+
+  padding: 0;
+
+  background: var(--bg-cream);
+
   overflow: hidden;
 }
 
-.disco-ball-wrapper {
+
+/* Hilangkan dekorasi bawaan */
+.section-date::before {
+  display: none;
+}
+
+
+/* Container */
+.section-date .container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   MAIN SCENE
+   ========================================================= */
+
+.save-date-scene {
   position: relative;
+
+  width: 100%;
+  max-width: 430px;
+
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 }
 
-.disco-ball-string {
-  width: 2px;
-  height: 20px;
-  background: var(--text-light);
-}
 
-.disco-ball {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #E8E8E8, #B0B0B0, #E8E8E8, #A0A0A0, #E8E8E8);
-  background-size: 200% 200%;
-  position: relative;
-  animation: discoShine 2s ease-in-out infinite;
-  box-shadow: 0 0 30px rgba(201, 169, 110, 0.3), inset 0 0 20px rgba(255,255,255,0.5);
-  overflow: hidden;
-}
-
-.disco-ball::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  background: repeating-conic-gradient(
-    rgba(255,255,255,0.3) 0deg 10deg,
-    rgba(200,200,200,0.3) 10deg 20deg
-  );
-}
-
-.disco-ball-shine {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: sparkle 1.5s ease-in-out infinite;
-}
-
-.disco-ball-shine.s2 { top: 15px; left: 40px; animation-delay: 0.5s; }
-.disco-ball-shine.s3 { top: 35px; left: 20px; animation-delay: 1s; }
-
-@keyframes discoShine {
-  0%, 100% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.3; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
+/* =========================================================
+   TITLE
+   ========================================================= */
 
 .save-the-date-title {
   font-family: var(--font-script);
-  font-size: 36px;
+  font-size: 56px;
   font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 24px;
-}
-
-/* Mini Calendar */
-.mini-calendar {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: var(--shadow-card);
-  margin-bottom: 32px;
-  border: 1px solid rgba(201, 169, 110, 0.15);
-  overflow: hidden;
+  color: #8B1A4A;
+  margin: 0 0 4px;
+  padding-left: 5px;
+  width: 100%;
+  text-align: left;
+  transform: rotate(-4deg);
+  transform-origin: 25% center;
+  letter-spacing: 0.5px;
   position: relative;
+  z-index: 6;
 }
 
-.mini-calendar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--wine), var(--gold), var(--olive));
+
+/* =========================================================
+   CALENDAR + LAMPION WRAPPER
+   ========================================================= */
+
+.save-date-cal-wrap {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 420px;
+
+  margin: 0 auto;
+
+  min-height: 215px;
 }
+
+
+/* =========================================================
+   CALENDAR
+   ========================================================= */
+
+.mini-calendar {
+  position: relative;
+  z-index: 2;
+
+  width: 72%;
+
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  text-align: left;
+
+  transform: rotate(-4deg);
+  transform-origin: 45% 50%;
+}
+
+
+/* =========================================================
+   GREEN HEADER
+   ========================================================= */
 
 .cal-header {
-  font-family: var(--font-hand);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 12px;
-}
-
-.cal-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.cal-day-name {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-light);
-  text-align: center;
-}
-
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-}
-
-.cal-day {
-  width: 36px;
-  height: 36px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  color: var(--text-medium);
-  border-radius: 50%;
-  margin: 0 auto;
-}
-
-.cal-day.empty {
-  visibility: hidden;
-}
-
-.cal-day.love-day {
-  background: var(--wine);
-  color: var(--white);
-  font-weight: 700;
-  position: relative;
-  animation: loveDayPulse 2s ease-in-out infinite;
-}
-
-.cal-day.love-day::after {
-  content: '♥';
-  position: absolute;
-  top: -6px;
-  right: -4px;
-  font-size: 10px;
-  color: var(--red-string);
-}
-
-@keyframes loveDayPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(107, 20, 54, 0.3); }
-  50% { box-shadow: 0 0 0 6px rgba(107, 20, 54, 0); }
-}
-
-/* Countdown */
-.countdown-wrapper {
-  text-align: center;
-}
-
-.countdown-label {
-  font-family: var(--font-hand);
-  font-size: 16px;
-  color: var(--text-medium);
-  margin-bottom: 16px;
-}
-
-.countdown-grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
-}
 
-.countdown-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  width: 100%;
+  height: 36px;
 
-.countdown-num {
-  font-family: var(--font-hand);
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--wine);
-  background: var(--white);
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  border: 1px solid rgba(201, 169, 110, 0.15);
-}
+  background: #5C6B32;
+  color: #F4F0D8;
 
-.countdown-unit {
-  font-size: 11px;
-  color: var(--text-light);
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.countdown-sep {
-  font-family: var(--font-hand);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 18px;
-}
-
-/* === SECTION 4: VENUE === */
-.section-venue {
-  text-align: center;
-}
-
-.venue-illustration {
-  margin-bottom: 20px;
-}
-
-.chandelier {
-  font-size: 48px;
-  filter: drop-shadow(0 4px 8px rgba(201, 169, 110, 0.3));
-}
-
-.venue-title {
-  font-family: var(--font-script);
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 24px;
-}
-
-.venue-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  box-shadow: var(--shadow-card);
-  border: 1px solid rgba(201, 169, 110, 0.15);
-  position: relative;
-  overflow: hidden;
-}
-
-.venue-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--wine), var(--gold), var(--olive));
-}
-
-.venue-card-badge {
-  display: inline-block;
-  padding: 4px 16px;
-  background: var(--wine);
-  color: var(--white);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-}
-
-.venue-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
-}
-
-.venue-datetime {
-  margin-bottom: 16px;
-}
-
-.venue-day {
   font-family: var(--font-hand);
   font-size: 18px;
-  color: var(--text-medium);
-}
-
-.venue-date-full {
-  font-family: var(--font-script);
-  font-size: 24px;
   font-weight: 700;
-  color: var(--wine);
-}
 
-.venue-time {
-  font-size: 14px;
-  color: var(--olive);
-  font-weight: 600;
-}
+  padding: 6px 10px;
+  margin: 0;
 
-.venue-divider {
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 16px auto;
-}
+  letter-spacing: 0.5px;
 
-.venue-location {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.venue-addr-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--wine);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-}
-
-.venue-addr {
-  font-size: 13px;
-  color: var(--text-medium);
-  line-height: 1.6;
-}
-
-.venue-map-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: linear-gradient(135deg, var(--olive) 0%, var(--olive-dark) 100%);
-  color: var(--white);
-  font-family: var(--font-hand);
-  font-size: 16px;
-  border-radius: 50px;
-  box-shadow: 0 4px 16px rgba(46, 71, 50, 0.3);
-  transition: all 0.3s ease;
-}
-
-.venue-map-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(46, 71, 50, 0.4);
-}
-
-/* === SECTION 5: LOVE STORY === */
-.section-story {
-  background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-cream-dark) 100%);
-}
-
-.story-title {
-  font-family: var(--font-script);
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--wine);
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.story-subtitle {
-  font-family: var(--font-hand);
-  font-size: 16px;
-  color: var(--text-light);
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-/* Polaroids */
-.story-polaroids {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  margin-bottom: 40px;
   position: relative;
-  height: 160px;
-}
-
-.polaroid {
-  background: var(--white);
-  padding: 6px 6px 24px 6px;
-  box-shadow: var(--shadow-card);
-  border-radius: 4px;
-  position: absolute;
-  transition: transform 0.3s ease;
-}
-
-.polaroid img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 2px;
-  filter: grayscale(1) contrast(1.6) brightness(1.1);
-}
-
-.p1 {
-  transform: rotate(-8deg) translateX(-60px);
-  z-index: 1;
-}
-
-.p2 {
-  transform: rotate(0deg) translateX(0);
   z-index: 3;
+
+  box-sizing: border-box;
 }
 
-.p3 {
-  transform: rotate(8deg) translateX(60px);
+/* Icon kalender */
+.cal-header-icon {
+  flex-shrink: 0;
+
+  width: 18px;
+  height: 18px;
+}
+
+
+/* =========================================================
+   CALENDAR COLUMNS
+   ========================================================= */
+
+.cal-strip {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 100%;
+  box-sizing: border-box;
+
+  border-bottom: 1.8px solid #2C2420;
+
+  position: relative;
   z-index: 2;
 }
 
-.polaroid:hover {
-  transform: rotate(0deg) translateX(0) scale(1.1) !important;
-  z-index: 10;
+
+.cal-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 7px 1px 12px;
+
+  border-right: 1.6px solid #2C2420;
+
+  min-height: 105px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
 
-/* Timeline */
+
+/* Kolom love */
+.cal-col-heart {
+  justify-content: flex-start;
+}
+
+
+/* Garis kiri */
+.cal-col:first-child {
+  border-left:
+    1.8px solid #2C2420;
+}
+
+
+/* Kolom angka 6 */
+.cal-col-overlap {
+  overflow: visible;
+}
+
+
+/* =========================================================
+   DAY NAME
+   ========================================================= */
+
+.cal-day-name {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 700;
+  color: #2C2420;
+  text-align: center;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+
+.cal-col-overlap .cal-day-name {
+  font-size: 16px;
+  font-weight: 700;
+
+  align-self: center;
+  padding-left: 0;
+
+  margin-bottom: 12px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   NUMBER 4
+   ========================================================= */
+
+.cal-day {
+  width: auto;
+  height: auto;
+  display: block;
+
+  font-family: var(--font-hand);
+  font-size: 46px;
+  font-weight: 700;
+
+  color: #2C2420;
+  margin: 0;
+  line-height: 1;
+}
+
+
+/* =========================================================
+   NUMBER 6
+   ========================================================= */
+
+.cal-col-overlap .cal-day {
+  align-self: center;
+
+  padding-left: 0;
+
+  font-size: 40px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   HEART
+   ========================================================= */
+
+.cal-heart {
+  position: relative;
+  width: 82px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -16px;
+  animation: loveDayPulse 2s ease-in-out infinite;
+}
+
+
+/* Bentuk love */
+.cal-heart svg {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  fill: #8B1A4A;
+}
+
+
+/* Angka 5 */
+.cal-heart span {
+  position: relative;
+  z-index: 1;
+
+  font-family: var(--font-hand);
+  font-size: 34px;
+  font-weight: 700;
+
+  color: #F4F0D8;
+  line-height: 1;
+  padding-top: 4px;
+}
+
+
+/* Animasi love */
+@keyframes loveDayPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+}
+
+
+/* =========================================================
+   LAMPION / DISCO BALL
+   ========================================================= */
+
+.disco-ball-img {
+  position: absolute;
+  right: -28px;
+  top: -30px;
+  width: 180px;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   DATE BELOW CALENDAR
+   ========================================================= */
+
+.save-date-numeric {
+  margin-top: 24px;
+
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 2.5px;
+  color: #5A4E44;
+
+  width: 100%;
+  text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .save-date-scene {
+    width: 100%;
+    max-width: 390px;
+  }
+
+  .save-the-date-title {
+    font-size: 44px;
+    padding-left: 8px;
+  }
+
+  .save-date-cal-wrap {
+    width: 100%;
+    max-width: 370px;
+    min-height: 195px;
+    position: relative;
+  }
+
+  /* KALENDER MOBILE DIPERSEMPIT */
+  .mini-calendar {
+    width: 72%;
+    transform: rotate(-4deg);
+    transform-origin: 45% 50%;
+  }
+
+  /* HEADER */
+  .cal-header {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cal-strip {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+  /* KOLOM */
+  .cal-col {
+    padding: 8px 1px 13px;
+    min-height: 110px;
+  }
+
+  /* NAMA HARI */
+  .cal-day-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    white-space: nowrap;
+  }
+
+  /* SELASA */
+  .cal-col-overlap .cal-day-name {
+    font-size: 14px;
+    padding-left: 0;
+    align-self: center;
+    white-space: nowrap;
+  }
+
+  /* ANGKA 4 */
+  .cal-day {
+    font-size: 38px;
+    font-weight: 700;
+  }
+
+  /* ANGKA 6 */
+  .cal-col-overlap .cal-day {
+    font-size: 36px;
+    padding-left: 0;
+    align-self: center;
+  }
+
+  /* LOVE */
+  .cal-heart {
+    width: 66px;
+    height: 60px;
+    margin-top: -12px;
+  }
+
+  .cal-heart span {
+    font-size: 29px;
+    font-weight: 700;
+  }
+
+  /* LAMPION MOBILE */
+  .disco-ball-img {
+    width: 145px;
+    right: -25px;
+    top: -25px;
+  }
+
+  .save-date-numeric {
+    margin-top: 20px;
+    font-size: 17px;
+  }
+}
+/* =========================================================
+   SECTION 4 : VENUE & TIMELINE
+   ========================================================= */
+
+.section-venue {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+
+  padding: 0 0 40px;
+
+  background: var(--bg-cream);
+
+  overflow: visible !important;
+}
+
+
+/* Container */
+.section-venue .container {
+  width: 100%;
+  max-width: 430px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+}
+
+
+/* =========================================================
+   LAMPU
+   ========================================================= */
+
+.venue-illustration {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin-top: -8px;
+  margin-bottom: 8px;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.venue-lampu {
+  width: 180px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.venue-title {
+  font-family: var(--font-script);
+
+  font-size: 52px;
+
+  font-weight: 700;
+
+  line-height: 1.15;
+
+  color: #8B1A4A;
+
+  margin: 0 0 54px;
+
+  padding: 0;
+
+  text-align: center;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.venue-content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   AKAD NIKAH
+   ========================================================= */
+
+.venue-event {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 58px;
+}
+
+
+.venue-event-title {
+  font-family: var(--font-script);
+
+  font-size: 25px;
+
+  font-weight: 500;
+
+  color: #8B1A4A;
+
+  margin: 0 0 10px;
+
+  line-height: 1.2;
+}
+
+
+.venue-date {
+  font-family: var(--font-hand);
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  color: #5A4E44;
+
+  margin: 0 0 8px;
+
+  letter-spacing: 0.5px;
+}
+
+
+.venue-time {
+  font-family: var(--font-hand);
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  color: #5A4E44;
+
+  margin: 0;
+
+  letter-spacing: 0.8px;
+}
+
+
+/* =========================================================
+   LOKASI
+   ========================================================= */
+
+.venue-location {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+
+.venue-location-title {
+  font-family: var(--font-script);
+
+  font-size: 25px;
+
+  font-weight: 500;
+
+  color: #8B1A4A;
+
+  margin: 0 0 12px;
+
+  line-height: 1.2;
+}
+
+
+.venue-address {
+  font-family: var(--font-hand);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+
+  font-weight: 500;
+
+  color: #5A4E44;
+
+  margin: 0;
+
+  padding: 0 15px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   GOOGLE MAPS BUTTON
+   ========================================================= */
+
+.venue-map-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 70px;
+
+  padding: 6px 14px;
+
+  margin-top: 8px;
+
+  background: #31552F;
+
+  color: #F4F0D8;
+
+  border-radius: 18px;
+
+  text-decoration: none;
+
+  font-family: var(--font-hand);
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.venue-map-btn:hover {
+  transform: scale(1.05);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   MEJA MAKAN
+   ========================================================= */
+
+.venue-table-illustration {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin-top: 35px;
+
+  position: relative;
+  z-index: 2;
+}
+
+
+.venue-mejamakan {
+  width: 285px;
+  max-width: 88%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
+   SECTION 5 - LOVE STORY (FIXED)
+   ========================================================= */
+
+.section-story {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-cream-dark) 100%);
+  padding: 35px 0 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
+}
+
+.section-story > .container {
+  width: calc(100% - 30px);
+  max-width: 390px;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+/* ---------- FOTO POLAROID ---------- */
+.story-polaroids {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: 0 0 26px !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+.polaroid {
+  position: absolute;
+  background: #fffef8;
+  padding: 6px 6px 22px;
+  box-shadow: 0 4px 10px rgba(60, 45, 30, 0.22);
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.p1 {
+  width: 102px;
+  height: 122px;
+  left: 3%;
+  top: 26px;
+  transform: rotate(-9deg);
+  z-index: 1;
+}
+.p1 img { width: 90px; height: 94px; }
+
+.p2 {
+  width: 148px;
+  height: 168px;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) rotate(2deg);
+  z-index: 3;
+}
+.p2 img { width: 136px; height: 140px; }
+
+.p3 {
+  width: 102px;
+  height: 122px;
+  right: 3%;
+  top: 26px;
+  transform: rotate(9deg);
+  z-index: 2;
+}
+.p3 img { width: 90px; height: 94px; }
+
+/* ---------- TITLE ---------- */
+.story-title {
+  font-family: var(--font-script);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--wine);
+  text-align: center;
+  line-height: 1;
+  margin: 0 0 40px !important;
+  padding: 0 !important;
+}
+
+.story-subtitle { display: none !important; }
+
+/* ---------- TIMELINE ---------- */
 .story-timeline {
   position: relative;
-  padding-left: 30px;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 5px 0 40px !important;
+  box-sizing: border-box;
 }
 
 .timeline-line {
   position: absolute;
-  left: 8px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
+  left: 11px;
+  top: 6px;
+  bottom: 6px;
+  width: 1.5px;
   background: repeating-linear-gradient(
     to bottom,
-    var(--wine-light) 0px,
-    var(--wine-light) 6px,
-    transparent 6px,
-    transparent 12px
+    var(--wine) 0px, var(--wine) 4px,
+    transparent 4px, transparent 9px
   );
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 32px;
+  width: 100%;
+  margin: 0 0 42px !important;
+  padding: 0 !important;
+  box-sizing: border-box;
 }
+.timeline-item:last-child { margin-bottom: 0 !important; }
 
+/* ikon hati kecil di atas garis — pakai heart solid, bukan pin */
 .timeline-pin {
   position: absolute;
-  left: -26px;
-  top: 4px;
-  width: 24px;
-  height: 24px;
-  background: var(--white);
-  border-radius: 50%;
+  left: -35px;
+  top: -8px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-soft);
-  z-index: 2;
+  background: transparent;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 5;
+}
+
+.timeline-pin svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  fill: #9B2335;
 }
 
 .timeline-content {
-  background: var(--white);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  box-shadow: var(--shadow-card);
-  border: 1px solid rgba(201, 169, 110, 0.15);
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
 }
 
 .timeline-date {
-  font-family: var(--font-script);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--wine);
   display: block;
-  margin-bottom: 8px;
+  font-family: var(--font-hand);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--wine);
+  line-height: 1.2;
+  margin: 0 0 10px !important;
+  padding: 0 !important;
 }
 
 .timeline-content p {
+  font-family: var(--font-hand);
   font-size: 13px;
-  color: var(--text-medium);
-  line-height: 1.8;
+  font-weight: 500;
+  color: #5A5149;
+  line-height: 1.75;
+  text-align: left;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* === SECTION 6: GIFT === */
-.section-gift {
-  text-align: center;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
+/* ---------- JANJI (ilustrasi tangan) ---------- */
+.story-janji {
+  position: relative;
+  width: 100% !important;
+  margin: 40px 0 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  box-sizing: border-box;
+  overflow: hidden !important;
 }
+
+.janji-img {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  vertical-align: bottom !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 480px) {
+  .section-story {
+    width: 100% !important;
+    padding-top: 30px !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+  }
+
+  .section-story > .container {
+    width: calc(100% - 30px) !important;
+    max-width: 390px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .story-polaroids {
+    width: 100% !important;
+    height: 178px;
+    margin: 0 0 22px !important;
+    padding: 0 !important;
+  }
+
+  .p1 { width: 96px; height: 116px; left: 2%; top: 24px; padding: 6px 6px 20px; transform: rotate(-9deg); }
+  .p1 img { width: 84px; height: 90px; }
+
+  .p2 { width: 138px; height: 158px; left: 50%; top: 0; padding: 6px 6px 22px; transform: translateX(-50%) rotate(2deg); }
+  .p2 img { width: 126px; height: 130px; }
+
+  .p3 { width: 96px; height: 116px; right: 2%; top: 24px; padding: 6px 6px 20px; transform: rotate(9deg); }
+  .p3 img { width: 84px; height: 90px; }
+
+  .story-title {
+    font-size: 36px !important;
+    line-height: 1;
+    margin: 0 0 36px !important;
+    padding: 0 !important;
+  }
+
+  .story-timeline {
+    width: 100% !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-right: 5px !important;
+    padding-bottom: 0 !important;
+    padding-left: 38px !important;
+    box-sizing: border-box;
+  }
+
+  .timeline-line { left: 10px; top: 5px; bottom: 5px; }
+
+  .timeline-item { width: 100%; margin: 0 0 36px !important; padding: 0 !important; }
+  .timeline-item:last-child { margin-bottom: 0 !important; }
+
+  .timeline-pin { left: -37px; top: -7px; width: 18px; height: 18px; margin: 0 !important; padding: 0 !important; }
+  .timeline-pin svg { width: 16px; height: 16px; }
+
+  .timeline-date { font-size: 15px; margin: 0 0 8px !important; padding: 0 !important; }
+
+  .timeline-content p { font-size: 12px; line-height: 1.7; margin: 0 !important; padding: 0 !important; }
+
+  .story-janji {
+    margin: 34px 0 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .janji-img {
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    vertical-align: bottom !important;
+  }
+}
+
+/* ==========================================================
+   SECTION 6 — DIGITAL WEDDING GIFT
+========================================================== */
+
+.section-gift {
+    position: relative;
+    width: 100%;
+    padding: 55px 15px 70px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.section-gift .container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   JUDUL
+========================================================== */
 
 .gift-title {
-  font-family: var(--font-script);
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 4px;
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.3;
 }
 
 .gift-subtitle {
-  font-size: 14px;
-  color: var(--olive);
-  font-weight: 600;
-  margin-bottom: 16px;
+    margin: 0 0 18px;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 1.5px;
 }
 
 .gift-thankyou {
-  font-size: 13px;
-  color: var(--text-medium);
-  margin-bottom: 28px;
-  line-height: 1.8;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto 30px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.65;
 }
 
-.envelope-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+
+/* ==========================================================
+   AMPLOP UTAMA
+========================================================== */
+
+.gift-envelope {
+    position: relative !important;
+
+    width: 350px !important;
+    max-width: 88vw !important;
+
+    height: 290px !important;
+
+    margin: 35px auto 30px !important;
+
+    left: auto !important;
+    right: auto !important;
+
+    box-sizing: border-box !important;
+
+    transform: none !important;
+
+    isolation: isolate;
 }
 
-.envelope-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  position: relative;
-  border: 1px solid rgba(201, 169, 110, 0.15);
-  transition: transform 0.3s ease;
+
+/* ==========================================================
+   BADAN AMPLOP
+========================================================== */
+
+.envelope-back {
+    position: absolute !important;
+
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+    height: 200px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border: 2px solid #4F5638 !important;
+    border-top: none !important;
+
+    border-radius: 0 0 8px 8px !important;
+
+    z-index: 1 !important;
 }
 
-.envelope-card:hover {
-  transform: translateY(-4px);
+
+/* ==========================================================
+   FLAP BELAKANG
+   SEGITIGA YANG MENYATU DENGAN AMPLOP
+========================================================== */
+
+.envelope-mouth {
+    position: absolute !important;
+
+    left: 0 !important;
+    top: -32px !important;
+
+    width: 100% !important;
+    height: 135px !important;
+
+    box-sizing: border-box !important;
+
+    background: #68704F !important;
+
+    clip-path: polygon(
+        50% 0%,
+        100% 100%,
+        0% 100%
+    ) !important;
+
+    border: none !important;
+
+    z-index: 2 !important;
+
+    pointer-events: none !important;
+
+    filter:
+        drop-shadow(
+            0 1px 0 #4F5638
+        )
+        drop-shadow(
+            0 -1px 0 #4F5638
+        )
+        drop-shadow(
+            1px 0 0 #4F5638
+        )
+        drop-shadow(
+            -1px 0 0 #4F5638
+        ) !important;
 }
 
-.envelope-flap {
-  height: 40px;
-  background: linear-gradient(135deg, var(--wine) 0%, var(--wine-light) 100%);
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-  position: relative;
+
+/* ==========================================================
+   KERTAS
+========================================================== */
+
+.envelope-paper {
+    position: absolute !important;
+
+    left: 7% !important;
+    top: 8px !important;
+
+    width: 86% !important;
+    height: 235px !important;
+
+    padding: 35px 18px 15px !important;
+
+    box-sizing: border-box !important;
+
+    background: #ffffff !important;
+
+    border-radius: 4px !important;
+
+    transform: rotate(-1deg) !important;
+
+    z-index: 3 !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.10);
 }
 
-.envelope-body {
-  padding: 20px;
+
+.envelope-left-fold {
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 50% !important;
+    height: 200px !important;
+
+    background: #737A58 !important;
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 100%,
+            0 100%
+        ) !important;
+
+    z-index: 4 !important;
+    pointer-events: none !important;
 }
 
-.bank-logo {
-  display: inline-block;
-  padding: 4px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 12px;
+
+.envelope-right-fold {
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 50% !important;
+    height: 200px !important;
+
+    background: #69704F !important;
+
+    clip-path:
+        polygon(
+            100% 0,
+            100% 100%,
+            0 100%
+        ) !important;
+
+    z-index: 4 !important;
+    pointer-events: none !important;
 }
 
-.bca-logo {
-  background: #0066B2;
-  color: var(--white);
+
+/* ==========================================================
+   FLAP DEPAN
+========================================================== */
+
+.envelope-front-flap {
+    position: absolute !important;
+
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+    height: 130px !important;
+
+    background: #7A8060 !important;
+
+    clip-path: polygon(
+        0 100%,
+        50% 0,
+        100% 100%
+    ) !important;
+
+    z-index: 6 !important;
+
+    pointer-events: none !important;
+
+    filter:
+        drop-shadow(
+            0 -2px 3px rgba(0, 0, 0, 0.15)
+        );
 }
 
-.rekening-name {
-  font-family: var(--font-hand);
-  font-size: 18px;
-  color: var(--text-medium);
-  margin-bottom: 4px;
+/* ==========================================================
+   REKENING
+========================================================== */
+
+.gift-bank-entry {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin:
+        0
+        0
+        12px !important;
+
+    padding:
+        0
+        0
+        8px !important;
+
+    box-sizing: border-box !important;
+
+    border-bottom:
+        1px solid #e5e5e5 !important;
+
+    color: #333 !important;
 }
 
-.rekening-number {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--wine);
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-  font-variant-numeric: tabular-nums;
+.gift-bank-entry:last-child {
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
 }
+
+
+/* ==========================================================
+   BARIS BANK
+========================================================== */
+
+.gift-bank-row {
+    display: flex !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+
+    gap: 6px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ==========================================================
+   ICON
+========================================================== */
+
+.gift-card-icon {
+    display: block !important;
+
+    width: 19px !important;
+    height: 19px !important;
+
+    min-width: 19px !important;
+    max-width: 19px !important;
+
+    min-height: 19px !important;
+    max-height: 19px !important;
+
+    flex:
+        0 0 19px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    color: #555 !important;
+
+    position: relative !important;
+}
+
+
+/*
+   Mencegah CSS global SVG
+   membesarkan icon
+*/
+
+.gift-card-icon svg {
+    width: 19px !important;
+    height: 19px !important;
+
+    max-width: 19px !important;
+    max-height: 19px !important;
+}
+
+
+/* ==========================================================
+   BANK
+========================================================== */
+
+.gift-bank-name {
+    display: inline-block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 13px !important;
+
+    line-height: 1.2 !important;
+
+    font-weight: 700 !important;
+
+    color: #222 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ==========================================================
+   NOMOR REKENING
+========================================================== */
+
+.gift-account-number {
+    display: inline-block !important;
+
+    margin-left: auto !important;
+
+    padding: 0 !important;
+
+    font-size: 9px !important;
+
+    line-height: 1.2 !important;
+
+    font-weight: 600 !important;
+
+    letter-spacing: .3px !important;
+
+    color: #444 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ==========================================================
+   NAMA PEMILIK
+========================================================== */
+
+.gift-account-name {
+    margin:
+        4px
+        0
+        6px
+        25px !important;
+
+    padding: 0 !important;
+
+    font-size: 9px !important;
+
+    line-height: 1.4 !important;
+
+    color: #777 !important;
+}
+
+
+/* ==========================================================
+   BUTTON SALIN
+========================================================== */
 
 .copy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  background: var(--bg-cream);
-  border: 2px dashed var(--gold);
-  border-radius: 50px;
-  font-family: var(--font-hand);
-  font-size: 14px;
-  color: var(--wine);
-  transition: all 0.3s ease;
+    display: inline-block !important;
+
+    margin-left: 25px !important;
+
+    padding:
+        4px
+        10px !important;
+
+    border:
+        1px solid #bcc7d5 !important;
+
+    border-radius: 20px !important;
+
+    background: #f7f9fb !important;
+
+    color: #555 !important;
+
+    font-family: inherit !important;
+
+    font-size: 9px !important;
+
+    line-height: 1.2 !important;
+
+    cursor: pointer !important;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
 }
 
 .copy-btn:hover {
-  background: var(--wine);
-  color: var(--white);
-  border-style: solid;
-  border-color: var(--wine);
+    background: #e3eaf2 !important;
+
+    color: #222 !important;
+
+    transform: translateY(-1px);
 }
 
 .copy-btn:active {
-  transform: scale(0.95);
+    transform: scale(.96);
 }
 
-/* === SECTION 7: RSVP === */
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width: 601px) {
+
+    .gift-envelope {
+        width: 380px !important;
+        height: 315px !important;
+    }
+
+
+    .envelope-back {
+        height: 215px !important;
+    }
+
+
+    /*
+       FLAP BELAKANG DESKTOP
+
+       Dibuat overlap dengan badan
+       supaya tidak terlihat terpisah.
+    */
+    .envelope-mouth {
+        top: -42px !important;
+
+        height: 155px !important;
+    }
+
+
+    .envelope-paper {
+        top: 8px !important;
+
+        height: 255px !important;
+
+        padding:
+            38px
+            22px
+            20px !important;
+    }
+
+
+    .envelope-left-fold,
+    .envelope-right-fold {
+        height: 215px !important;
+    }
+
+
+    .envelope-front-flap {
+        height: 140px !important;
+    }
+
+
+    .gift-card-icon {
+        width: 20px !important;
+        height: 20px !important;
+
+        min-width: 20px !important;
+        max-width: 20px !important;
+
+        min-height: 20px !important;
+        max-height: 20px !important;
+
+        flex-basis: 20px !important;
+    }
+
+
+    .gift-bank-name {
+        font-size: 14px !important;
+    }
+
+
+    .gift-account-number {
+        font-size: 10px !important;
+    }
+
+
+    .gift-account-name {
+        margin-left: 27px !important;
+        font-size: 10px !important;
+    }
+
+
+    .copy-btn {
+        margin-left: 27px !important;
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 600px) {
+
+    .section-gift {
+        padding:
+            50px
+            15px
+            60px;
+    }
+
+
+    .gift-title {
+        font-size: 23px;
+    }
+
+
+    .gift-subtitle {
+        font-size: 12px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .gift-thankyou {
+        max-width: 340px;
+
+        margin-bottom: 25px;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+    }
+
+
+    /* ==============================================
+       AMPLOP
+    ============================================== */
+
+    .gift-envelope {
+        width: 350px !important;
+
+        max-width: 88vw !important;
+
+        height: 290px !important;
+
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        margin-top: 25px !important;
+    }
+
+
+    /* ==============================================
+       BADAN AMPLOP
+    ============================================== */
+
+    .envelope-back {
+        height: 200px !important;
+
+        border: none !important;
+    }
+
+
+    /* ==============================================
+       FLAP BELAKANG
+
+       Ujungnya keluar ke atas kertas,
+       bagian bawahnya menyatu dengan badan.
+    ============================================== */
+
+    .envelope-mouth {
+        top: -30px !important;
+
+        height: 125px !important;
+
+        background:
+            linear-gradient(
+                135deg,
+                #c0ccd9 0%,
+                #e2e8ef 50%,
+                #b7c4d3 100%
+            ) !important;
+
+        clip-path:
+            polygon(
+                50% 0%,
+                100% 100%,
+                0% 100%
+            ) !important;
+
+        z-index: 2 !important;
+    }
+
+
+    /* ==============================================
+       KERTAS
+    ============================================== */
+
+    .envelope-paper {
+        left: 7% !important;
+
+        top: 8px !important;
+
+        width: 86% !important;
+
+        height: 235px !important;
+
+        padding:
+            35px
+            18px
+            15px !important;
+
+        transform:
+            rotate(-1deg) !important;
+
+        z-index: 3 !important;
+    }
+
+
+    /* ==============================================
+       LIPATAN
+    ============================================== */
+
+    .envelope-left-fold,
+    .envelope-right-fold {
+        height: 200px !important;
+    }
+
+
+    /* ==============================================
+       FLAP DEPAN
+    ============================================== */
+
+    .envelope-front-flap {
+        height: 130px !important;
+    }
+
+
+    /* ==============================================
+       ICON
+    ============================================== */
+
+    .gift-card-icon {
+        width: 19px !important;
+        height: 19px !important;
+
+        min-width: 19px !important;
+        max-width: 19px !important;
+
+        min-height: 19px !important;
+        max-height: 19px !important;
+
+        flex-basis: 19px !important;
+    }
+
+
+    /* ==============================================
+       REKENING
+    ============================================== */
+
+    .gift-bank-name {
+        font-size: 13px !important;
+    }
+
+
+    .gift-account-number {
+        font-size: 9px !important;
+    }
+
+
+    .gift-account-name {
+        margin:
+            4px
+            0
+            6px
+            25px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .copy-btn {
+        margin-left: 25px !important;
+
+        padding:
+            4px
+            10px !important;
+
+        font-size: 9px !important;
+    }
+}
+
+
+/* ==========================================================
+   HP KECIL
+========================================================== */
+
+@media (max-width: 380px) {
+
+    .gift-envelope {
+        width: 320px !important;
+
+        max-width: 86vw !important;
+
+        height: 270px !important;
+    }
+
+
+    .envelope-back {
+        height: 185px !important;
+    }
+
+
+    .envelope-mouth {
+        top: -28px !important;
+
+        height: 115px !important;
+    }
+
+
+    .envelope-paper {
+        height: 220px !important;
+
+        padding:
+            32px
+            15px
+            12px !important;
+    }
+
+
+    .envelope-left-fold,
+    .envelope-right-fold {
+        height: 185px !important;
+    }
+
+
+    .envelope-front-flap {
+        height: 120px !important;
+    }
+
+
+    .gift-bank-name {
+        font-size: 12px !important;
+    }
+
+
+    .gift-account-number {
+        font-size: 8px !important;
+    }
+}
+
+/* === SECTION 7: RSVP ===
+   Slide ini tidak boleh "dikecilkan" oleh fit-scale.
+   Kontennya dibuat scroll internal agar tetap terbaca di layar kecil. */
 .section-rsvp {
   text-align: center;
   background: linear-gradient(180deg, var(--bg-cream-dark) 0%, var(--bg-cream) 100%);
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
+  min-height: 0;
+  display: block;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.section-rsvp::before {
+  display: none;
+}
+
+.section-rsvp > .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 46px 22px 44px;
+
+  box-sizing: border-box;
+}
+
+.section-rsvp > .container::-webkit-scrollbar {
+  width: 0;
 }
 
 .rsvp-gazebo {
@@ -1798,10 +3106,16 @@ button {
   align-items: center;
   gap: 4px;
   background: var(--bg-cream);
+  cursor: pointer;
 }
 
 .rsvp-option-btn span {
   font-size: 18px;
+}
+
+.rsvp-option-btn:hover:not(.active) {
+  border-color: var(--gold);
+  color: var(--olive-dark);
 }
 
 .rsvp-option-btn.active {
@@ -1825,6 +3139,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .submit-btn:hover {
@@ -1846,15 +3161,33 @@ button {
   font-size: 24px;
   color: var(--wine);
   margin-bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
 }
 
-.wall-list {
+.wall-count {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--olive);
+  background: rgba(124, 138, 93, 0.12);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+
+/* Daftar pesan mengalir di dalam scroll container slide RSVP */
+/* Daftar pesan: dibatasi agar tidak melebihi satu layar.
+   Scroll-nya internal di dalam kolom ini, bukan bikin halaman kepanjangan. */
+.section-rsvp .wall-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 400px;
+  max-height: calc(100dvh - 300px);
+  min-height: 140px;
   overflow-y: auto;
-  padding: 4px;
+  padding: 6px;
 }
 
 .wall-empty {
@@ -1868,7 +3201,7 @@ button {
 .wall-message {
   background: var(--white);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 14px 16px;
   box-shadow: var(--shadow-soft);
   text-align: left;
   border-left: 3px solid var(--wine);
@@ -1880,18 +3213,35 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.wall-message-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
 .wall-message-name {
   font-family: var(--font-hand);
   font-size: 16px;
   font-weight: 600;
   color: var(--wine);
-  margin-bottom: 2px;
 }
 
-.wall-message-status {
+.wall-message-time {
+  font-size: 11px;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.wall-message .wall-message-status {
+  display: inline-block;
   font-size: 11px;
   color: var(--olive);
-  margin-bottom: 6px;
+  background: rgba(124, 138, 93, 0.12);
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 8px;
 }
 
 .wall-message-text {
@@ -1900,55 +3250,198 @@ button {
   line-height: 1.6;
 }
 
-/* === FOOTER === */
-.footer-section {
-  padding: 48px 0;
+/* =====================================================
+   COUNTDOWN - COUNTING DAYS
+   ===================================================== */
+
+.countdown-section {
+  position: relative;
   text-align: center;
-  background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-cream-dark) 100%);
-  border-top: 1px solid rgba(201, 169, 110, 0.15);
+  padding: 70px 20px 80px;
+  background: var(--bg-cream);
+  overflow: hidden;
 }
 
-.footer-ornament {
-  color: var(--gold);
-  font-size: 16px;
-  letter-spacing: 8px;
-  margin-bottom: 16px;
-}
-
-.footer-thankyou {
-  font-size: 14px;
-  color: var(--text-medium);
-  margin-bottom: 12px;
-  line-height: 1.8;
-}
-
-.footer-couple {
-  font-family: var(--font-script);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--wine);
-  margin-bottom: 4px;
-}
-
-.footer-couple span {
-  color: var(--olive);
-}
-
-.footer-date {
-  font-size: 13px;
-  color: var(--text-light);
-  letter-spacing: 4px;
-  margin-bottom: 16px;
-}
-
-.footer-verse {
-  font-size: 12px;
-  font-style: italic;
-  color: var(--text-light);
-  max-width: 280px;
+.countdown-container {
+  max-width: 400px;
   margin: 0 auto;
-  line-height: 1.8;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+/* ===============================
+   CINCIN
+   =============================== */
+
+.countdown-ring {
+  width: 105px;
+  height: auto;
+
+  object-fit: contain;
+
+  margin-bottom: -18px;
+
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ===============================
+   TITLE
+   =============================== */
+
+.countdown-title {
+  position: relative;
+  z-index: 1;
+
+  margin: 0;
+
+  font-family: var(--font-playball);
+  font-size: 48px;
+  font-weight: 400;
+
+  line-height: 1.1;
+
+  color: var(--wine);
+}
+
+
+/* ===============================
+   COUNTDOWN NUMBERS
+   =============================== */
+
+.countdown-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top: 42px;
+
+  gap: 12px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 62px;
+}
+
+.countdown-number {
+  display: block;
+
+  font-family: var(--font-body);
+
+  font-size: 35px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  color: var(--wine);
+}
+
+.countdown-label {
+  display: block;
+
+  margin-top: 9px;
+
+  font-family: var(--font-body);
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: var(--wine-dark);
+}
+
+
+/* ===============================
+   SEPARATOR :
+   =============================== */
+
+.countdown-separator {
+  font-family: var(--font-body);
+
+  font-size: 30px;
+  font-weight: 700;
+
+  color: var(--wine);
+
+  line-height: 1;
+
+  margin-top: -13px;
+}
+
+
+/* ===============================
+   DATE
+   =============================== */
+
+.countdown-date {
+  margin-top: 48px;
+
+  font-family: var(--font-hand);
+
+  font-size: 21px;
+
+  letter-spacing: 4px;
+
+  color: var(--olive-dark);
+}
+
+
+/* ===============================
+   MOBILE
+   =============================== */
+
+@media (max-width: 380px) {
+
+  .countdown-section {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .countdown-ring {
+    width: 90px;
+  }
+
+  .countdown-title {
+    font-size: 42px;
+  }
+
+  .countdown-wrapper {
+    gap: 7px;
+  }
+
+  .countdown-item {
+    min-width: 52px;
+  }
+
+  .countdown-number {
+    font-size: 28px;
+  }
+
+  .countdown-separator {
+    font-size: 24px;
+  }
+
+  .countdown-label {
+    font-size: 6px;
+    letter-spacing: 1.5px;
+  }
+
+  .countdown-date {
+    font-size: 18px;
+  }
+}
+
 
 /* === TOAST === */
 .toast-notification {
@@ -2006,19 +3499,178 @@ button {
 
 /* === RESPONSIVE FINE-TUNING === */
 @media (max-width: 360px) {
-  .countdown-num {
-    width: 56px;
-    height: 56px;
-    font-size: 28px;
+  .save-the-date-title {
+    font-size: 36px;
+  }
+  .disco-ball-img {
+    width: 128px;
+    right: 10px;
   }
   .cal-day {
-    width: 32px;
-    height: 32px;
-    font-size: 12px;
+    font-size: 28px;
   }
   .polaroid img {
     width: 80px;
     height: 80px;
   }
+}
+
+/* ============================================
+   FULLSCREEN SLIDE SECTIONS & NAVIGATION
+   ============================================ */
+
+/* Lock the page: no manual scrolling.
+   Navigation happens per-section (one screen each). */
+html, body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.main-content {
+  margin: 0 auto;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Every section is exactly one viewport screen */
+.main-content > section {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(var(--fit-scale, 1));
+  transition: opacity 0.55s ease, transform 0.55s ease, visibility 0.55s;
+  will-change: transform, opacity;
+}
+
+.main-content > section.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Music toggle anchored to the invitation frame */
+.music-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 25;
+  border-radius: 50%;
+}
+
+/* ---- Slide navigation overlay ---- */
+.slide-nav {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.slide-nav.hidden {
+  display: none;
+}
+
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(107, 20, 54, 0.12);
+  color: #4E0F28;
+  font-size: 32px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slide-arrow.prev {
+  left: 0;
+  border-radius: 0 16px 16px 0;
+}
+
+.slide-arrow.next {
+  right: 0;
+  border-radius: 16px 0 0 16px;
+}
+
+.slide-arrow:hover {
+  background: rgba(107, 20, 54, 0.3);
+}
+
+.slide-arrow:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.slide-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Dot pagination ---- */
+.slide-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  background: rgba(255, 251, 229, 0.8);
+  border-radius: 20px;
+  pointer-events: auto;
+  z-index: 16;
+}
+
+.slide-dots .dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1.5px solid var(--wine);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slide-dots .dot.active {
+  background: var(--wine);
+  transform: scale(1.3);
+}
+
+.slide-dots .dot:hover {
+  background: rgba(107, 20, 54, 0.4);
+}
+
+/* Make sure the desktop frame looks clean on any height */
+@media (min-width: 481px) {
+  .main-content {
+    border-radius: 0;
+  }
+}
+
+/* ============================================
+   COUNTDOWN: center vertically on the screen
+   ============================================ */
+#sectionCountdown {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
