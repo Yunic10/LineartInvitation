@@ -3,6 +3,14 @@
    Interactivity: Countdown, Audio, Clipboard, RSVP
    ================================================ */
 
+// Hitung URL API dari lokasi script.js, supaya selalu benar
+// walaupun halaman diakses dari URL apa pun (localhost/..., .test, dsb).
+let apiUrl = 'api/rsvp.php';
+const __scriptSrc = document.currentScript && document.currentScript.src;
+if (__scriptSrc) {
+  apiUrl = __scriptSrc.replace(/[^/]+$/, '') + 'api/rsvp.php';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ========== INIT AOS ==========
@@ -19,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const guestNameEl = document.getElementById('guestName');
   if (guestParam && guestNameEl) {
     guestNameEl.textContent = decodeURIComponent(guestParam.replace(/\+/g, ' '));
+  }
+  const rsvpGuestInput = document.getElementById('guestInput');
+  if (guestParam && rsvpGuestInput) {
+    rsvpGuestInput.value = decodeURIComponent(guestParam.replace(/\+/g, ' '));
   }
 
   // ========== COVER MODAL & OPEN INVITATION ==========
@@ -100,6 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
       goToSlide(currentSlide);
     });
 
+    // Orientasi HP ganti (potrait <-> landscape) — refit setelah animasi browser
+    window.addEventListener('orientationchange', function () {
+      if (!slideSections.length) return;
+      window.setTimeout(function () {
+        fitAllSlides();
+        goToSlide(currentSlide);
+      }, 250);
+    });
+
+    // Address bar mobile muncul/sembunyi (visual viewport berubah) — refit
+    if (window.visualViewport) {
+      var vpTimer = null;
+      window.visualViewport.addEventListener('resize', function () {
+        if (vpTimer) return;
+        vpTimer = window.setTimeout(function () {
+          vpTimer = null;
+          if (!slideSections.length) return;
+          fitAllSlides();
+          goToSlide(currentSlide);
+        }, 300);
+      });
+    }
+
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () {
         if (!slideSections.length) return;
@@ -132,8 +167,19 @@ document.addEventListener('DOMContentLoaded', () => {
   function fitSlide(section) {
     if (!section) return;
     var parent = section.parentElement;
-    var availH = parent ? parent.clientHeight : window.innerHeight;
-    var availW = parent ? parent.clientWidth : window.innerWidth;
+
+    // Ukur dari viewport yang benar-benar terlihat (naik-turun address bar mobile),
+    // bukan dari clientHeight lapisan pembungkus (100dvh sering tidak sinkron).
+    var availH = window.innerHeight;
+    var availW = window.innerWidth;
+    if (window.visualViewport && window.visualViewport.width) {
+      availH = window.visualViewport.height;
+      availW = window.visualViewport.width;
+    }
+    if (!availH || !availW) {
+      availH = parent ? parent.clientHeight : window.innerHeight;
+      availW = parent ? parent.clientWidth : window.innerWidth;
+    }
 
     var savedH = section.style.height;
     var savedT = section.style.top;
@@ -268,10 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
       bgMusic.play().then(() => {
         isMusicPlaying = true;
         updateMusicUI();
+        updatePlayPauseBtn();
       }).catch(() => {
         // Autoplay blocked - user needs to tap music toggle
         isMusicPlaying = false;
         updateMusicUI();
+        updatePlayPauseBtn();
       });
     }, 500);
   });
@@ -289,6 +337,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(() => {});
     }
     updateMusicUI();
+    updatePlayPauseBtn();
+  });
+
+  // Ikon play/pause ikut sinkron lewat event pemutar, apa pun sumbernya
+  bgMusic.addEventListener('play', () => {
+    isMusicPlaying = true;
+    updateMusicUI();
+    updatePlayPauseBtn();
+  });
+  bgMusic.addEventListener('pause', () => {
+    isMusicPlaying = false;
+    updateMusicUI();
+    updatePlayPauseBtn();
   });
 
   function updateMusicUI() {
@@ -316,13 +377,24 @@ document.addEventListener('DOMContentLoaded', () => {
       updateMusicUI();
       updatePlayPauseBtn();
     });
+
+    // Ikon tombol pemutar tersimpan rusak (mojibake) di HTML — perbaiki di sini
+    document.querySelectorAll('.player-btn').forEach(function (btn) {
+      var label = (btn.getAttribute('aria-label') || '').toLowerCase();
+      if (label === 'shuffle') btn.textContent = '⇄';
+      else if (label === 'previous') btn.textContent = '⏮';
+      else if (label === 'next') btn.textContent = '⏭';
+      else if (label === 'favorite') btn.textContent = '❤';
+    });
+
+    updatePlayPauseBtn();
   }
 
   function updatePlayPauseBtn() {
     const btn = document.getElementById('playPauseBtn');
     if (!btn) return;
     if (isMusicPlaying) {
-      btn.textContent = '⏸';
+      btn.textContent = '❚❚';
       btn.classList.add('playing');
     } else {
       btn.textContent = '▶';
@@ -453,16 +525,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Load saved messages
+  // Load messages from database (MySQL via PHP)
   let messages = [];
-  try {
-    const saved = localStorage.getItem('wedding_messages');
-    if (saved) messages = JSON.parse(saved);
-  } catch (e) {}
 
-  renderMessages();
+  async function loadMessages() {
+    try {
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+      if (data.ok) {
+        messages = data.messages || [];
+        renderMessages();
+      }
+    } catch (e) {
+      showToast('Gagal memuat ucapan.');
+    }
+  }
 
-  rsvpForm.addEventListener('submit', (e) => {
+  loadMessages();
+
+  rsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = guestInput.value.trim();
@@ -473,26 +554,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const attendanceLabels = {
-      'hadir': '🎉 Akan Hadir',
-      'tidak_hadir': '😢 Tidak Bisa Hadir',
-      'masih_ragu': '🤔 Masih Ragu'
-    };
-
-    const newMsg = {
-      name: name,
-      status: attendanceLabels[selectedAttendance] || '🎉 Akan Hadir',
-      text: message || 'Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, wa rahmah. 🤍',
-      time: new Date().toLocaleString('id-ID')
-    };
-
-    messages.unshift(newMsg);
-
     try {
-      localStorage.setItem('wedding_messages', JSON.stringify(messages));
-    } catch (e) {}
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nama: name,
+          kehadiran: selectedAttendance,
+          ucapan: message
+        })
+      });
+      const data = await res.json();
 
-    renderMessages();
+      if (!data.ok) {
+        showToast(data.message || 'Gagal mengirim ucapan.');
+        return;
+      }
+
+      showToast(data.message || 'Ucapan berhasil dikirim! 🤍');
+      await loadMessages();
+    } catch (err) {
+      showToast('Gagal mengirim ucapan. Coba lagi.');
+      return;
+    }
 
     // Reset form
     guestInput.value = '';
@@ -500,8 +584,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rsvpOptionBtns.forEach(b => b.classList.remove('active'));
     rsvpOptionBtns[0].classList.add('active');
     selectedAttendance = 'hadir';
-
-    showToast('Ucapan berhasil dikirim! 🤍');
 
     // Bawa pandangan ke kolom ucapan agar pesan baru terlihat
     const rsvpContainer = document.querySelector('.section-rsvp > .container');
@@ -538,11 +620,13 @@ document.addEventListener('DOMContentLoaded', () => {
       div.className = 'wall-message';
       div.innerHTML = `
         <div class="wall-message-head">
-          <p class="wall-message-name">${escapeHtml(msg.name)}</p>
+          <div class="wall-message-id">
+            <p class="wall-message-name">${escapeHtml(msg.name)}</p>
+            <span class="wall-message-status">${escapeHtml(msg.status)}</span>
+          </div>
           <span class="wall-message-time">${escapeHtml(msg.time || '')}</span>
         </div>
-        <span class="wall-message-status">${escapeHtml(msg.status)}</span>
-        <p class="wall-message-text">${escapeHtml(msg.text)}</p>
+        <p class="wall-message-text">${escapeHtml(msg.text || 'Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, wa rahmah. 🤍')}</p>
       `;
       guestWall.appendChild(div);
     });

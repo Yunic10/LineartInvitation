@@ -523,7 +523,7 @@ button {
   position: absolute;
   left: 8%;
   right: 8%;
-  bottom: 2%;
+  bottom: 5%;
   height: 21%;
   min-height: 150px;
   background: var(--olive-dark);
@@ -827,20 +827,51 @@ button {
 }
 
 .player-btn-play {
+  position: relative;
   width: 54px;
   height: 54px;
   border-radius: 50%;
   background: var(--olive);
   color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
+  font-size: 0;
   opacity: 1;
+  isolation: isolate;
 }
 
-.player-btn-play.playing {
-  background: rgba(255,255,255,0.3);
+/* Play ▶ — tampil saat musik berhenti */
+.player-btn-play::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 3px);
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 13px 0 13px 21px;
+  border-color: transparent transparent transparent #ffffff;
+}
+
+/* Pause ❚❚ — tampil saat musik diputar */
+.player-btn-play.playing::before {
+  left: calc(50% - 8px);
+  transform: translateY(-50%);
+  width: 6px;
+  height: 22px;
+  border: none;
+  border-radius: 2px;
+  background: #ffffff;
+}
+.player-btn-play.playing::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  transform: translateY(-50%);
+  width: 6px;
+  height: 22px;
+  border-radius: 2px;
+  background: #ffffff;
 }
 
 .player-hint {
@@ -1622,7 +1653,7 @@ button {
   justify-content: center;
   align-items: flex-start;
 
-  margin-top: -8px;
+  margin-top: -40px;
   margin-bottom: 8px;
 
   position: relative;
@@ -1865,313 +1896,439 @@ button {
 }
 
 /* =========================================================
-   SECTION 5 - LOVE STORY (FIXED)
+   SECTION 5 - LOVE STORY
+   (responsive: ukuran mengikuti lebar/tinggi layar,
+    muat satu layar tanpa scroll)
    ========================================================= */
 
 .section-story {
-  position: relative;
-  width: 100%;
-  background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-cream-dark) 100%);
-  padding: 35px 0 0 !important;
+  position: relative !important;
+  width: 100% !important;
+
+  background: linear-gradient(
+    180deg,
+    var(--bg-cream) 0%,
+    var(--bg-cream-dark) 100%
+  );
+
   margin: 0 !important;
-  overflow: hidden !important;
+  padding: clamp(10px, 2.5vh, 18px) 0 0 !important;
+
+  height: auto !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: visible !important;
+
+  /* Saat perlu dikecilkan, berakar di atas agar tidak terpotong bawah */
+  transform-origin: top center !important;
+
   box-sizing: border-box;
 }
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
 
 .section-story > .container {
-  width: calc(100% - 30px);
-  max-width: 390px;
+  width: 100% !important;
+  max-width: 440px !important;
+
   margin: 0 auto !important;
-  padding: 0 !important;
+  padding: 0 20px !important;
+
   box-sizing: border-box;
 }
 
-/* ---------- FOTO POLAROID ---------- */
+
+/* =========================================================
+   FOTO POLAROID
+   (tinggi strip menyesuaikan lebar layar)
+   ========================================================= */
+
 .story-polaroids {
   position: relative;
+
   width: 100%;
-  height: 180px;
-  margin: 0 0 26px !important;
+  height: clamp(118px, 36vw, 150px);
+
+  margin: 0 !important;
   padding: 0 !important;
+
   box-sizing: border-box;
 }
+
+
+/* POLAROID */
 
 .polaroid {
   position: absolute;
+
   background: #fffef8;
-  padding: 6px 6px 22px;
+
   box-shadow: 0 4px 10px rgba(60, 45, 30, 0.22);
+
   box-sizing: border-box;
+
   border-radius: 0;
 }
 
+
 .polaroid img {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   margin: 0 !important;
   padding: 0 !important;
+
   border: 0;
+
   box-sizing: border-box;
 }
+
+
+/* ---------------------------------------------------------
+   FOTO KIRI
+   --------------------------------------------------------- */
 
 .p1 {
-  width: 102px;
-  height: 122px;
-  left: 3%;
-  top: 26px;
-  transform: rotate(-9deg);
+  width: 80px;
+  height: 98px;
+
+  left: 50%;
+  top: 12px;
+
+  padding: 5px 5px 16px;
+
+  transform: translateX(calc(-50% - 90px)) rotate(-8deg);
+
   z-index: 1;
 }
-.p1 img { width: 90px; height: 94px; }
+
+
+.p1 img {
+  width: 70px;
+  height: 77px;
+}
+
+
+/* ---------------------------------------------------------
+   FOTO TENGAH
+   --------------------------------------------------------- */
 
 .p2 {
-  width: 148px;
-  height: 168px;
+  width: 110px;
+  height: 130px;
+
   left: 50%;
   top: 0;
+
+  padding: 5px 5px 18px;
+
   transform: translateX(-50%) rotate(2deg);
+
   z-index: 3;
 }
-.p2 img { width: 136px; height: 140px; }
+
+
+.p2 img {
+  width: 100px;
+  height: 107px;
+}
+
+
+/* ---------------------------------------------------------
+   FOTO KANAN
+   --------------------------------------------------------- */
 
 .p3 {
-  width: 102px;
-  height: 122px;
-  right: 3%;
-  top: 26px;
-  transform: rotate(9deg);
+  width: 80px;
+  height: 98px;
+
+  left: 50%;
+  top: 12px;
+
+  padding: 5px 5px 16px;
+
+  transform: translateX(calc(-50% + 90px)) rotate(8deg);
+
   z-index: 2;
 }
-.p3 img { width: 90px; height: 94px; }
 
-/* ---------- TITLE ---------- */
+
+.p3 img {
+  width: 70px;
+  height: 77px;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
 .story-title {
   font-family: var(--font-script);
-  font-size: 40px;
+
   font-weight: 700;
+
   color: var(--wine);
+
   text-align: center;
-  line-height: 1;
-  margin: 0 0 40px !important;
-  padding: 0 !important;
+
+  line-height: 1.1;
 }
 
-.story-subtitle { display: none !important; }
 
-/* ---------- TIMELINE ---------- */
+.story-subtitle {
+  display: none !important;
+}
+
+
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
 .story-timeline {
   position: relative;
+
   width: 100%;
-  margin: 0 !important;
-  padding: 0 5px 0 40px !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  margin: clamp(4px, 1.5vh, 10px) 0 0 !important;
+
+  padding: 0 5px 0 30px !important;
+
+  overflow: visible !important;
+
   box-sizing: border-box;
 }
+
+
+/* =========================================================
+   TIMELINE LINE
+   ========================================================= */
 
 .timeline-line {
   position: absolute;
-  left: 11px;
-  top: 6px;
-  bottom: 6px;
+
+  left: 8px;
+
+  top: 5px;
+  bottom: 5px;
+
   width: 1.5px;
+
   background: repeating-linear-gradient(
     to bottom,
-    var(--wine) 0px, var(--wine) 4px,
-    transparent 4px, transparent 9px
+    var(--wine) 0px,
+    var(--wine) 4px,
+    transparent 4px,
+    transparent 9px
   );
 }
 
+
+/* =========================================================
+   TIMELINE ITEM
+   ========================================================= */
+
 .timeline-item {
   position: relative;
+
   width: 100%;
-  margin: 0 0 42px !important;
+
+  margin: 0 0 clamp(6px, 2vh, 14px) !important;
+
   padding: 0 !important;
+
   box-sizing: border-box;
 }
-.timeline-item:last-child { margin-bottom: 0 !important; }
 
-/* ikon hati kecil di atas garis — pakai heart solid, bukan pin */
+
+.timeline-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+
+/* =========================================================
+   HEART
+   ========================================================= */
+
 .timeline-pin {
   position: absolute;
-  left: -35px;
-  top: -8px;
-  width: 20px;
-  height: 20px;
+
+  left: -30px;
+  top: -6px;
+
+  width: 16px;
+  height: 16px;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   background: transparent;
+
   padding: 0 !important;
   margin: 0 !important;
+
   z-index: 5;
 }
 
+
 .timeline-pin svg {
   display: block;
-  width: 18px;
-  height: 18px;
+
+  width: 14px;
+  height: 14px;
+
   margin: 0;
   padding: 0;
+
   fill: #9B2335;
 }
 
+
+/* =========================================================
+   TIMELINE CONTENT
+   ========================================================= */
+
 .timeline-content {
   width: 100%;
+
   margin: 0 !important;
   padding: 0 !important;
+
   background: transparent;
+
   border: none;
+
   box-shadow: none;
+
   box-sizing: border-box;
 }
+
+
+/* =========================================================
+   TIMELINE DATE
+   ========================================================= */
 
 .timeline-date {
   display: block;
+
   font-family: var(--font-hand);
-  font-size: 16px;
+
+  font-size: clamp(14px, 4vw, 17px) !important;
+
   font-weight: 700;
-  letter-spacing: 1px;
+
+  letter-spacing: .5px;
+
   color: var(--wine);
+
   line-height: 1.2;
-  margin: 0 0 10px !important;
+
+  margin: 0 0 clamp(3px, 1vh, 5px) !important;
   padding: 0 !important;
 }
+
+
+/* =========================================================
+   TIMELINE TEXT
+   ========================================================= */
 
 .timeline-content p {
   font-family: var(--font-hand);
-  font-size: 13px;
+
+  font-size: clamp(14px, 4.2vw, 16px) !important;
+
   font-weight: 500;
+
   color: #5A5149;
-  line-height: 1.75;
+
+  line-height: 1.4 !important;
+
   text-align: left;
+
   margin: 0 !important;
   padding: 0 !important;
 }
 
-/* ---------- JANJI (ilustrasi tangan) ---------- */
+
+/* =========================================================
+   JANJI
+   LEBAR MENGIKUTI KOLOM KONTEN (lebar layar di ponsel,
+   maks. 440px di layar besar) — TINGGI MENYESUAIKAN.
+   ========================================================= */
+
 .story-janji {
-  position: relative;
+  position: relative !important;
+
   width: 100% !important;
-  margin: 40px 0 0 !important;
+  max-width: 440px !important;
+
+  margin: auto auto 0 !important;
+
   padding: 0 !important;
+
   display: block !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  overflow: visible !important;
+
   line-height: 0 !important;
   font-size: 0 !important;
-  box-sizing: border-box;
-  overflow: hidden !important;
+
+  box-sizing: border-box !important;
 }
+
 
 .janji-img {
   display: block !important;
+
   width: 100% !important;
   max-width: none !important;
+
   height: auto !important;
+  min-height: 0 !important;
+
   margin: 0 !important;
   padding: 0 !important;
+
   border: 0 !important;
-  vertical-align: bottom !important;
-}
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
-@media (max-width: 480px) {
-  .section-story {
-    width: 100% !important;
-    padding-top: 30px !important;
-    padding-right: 0 !important;
-    padding-bottom: 0 !important;
-    padding-left: 0 !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-    box-sizing: border-box;
-  }
-
-  .section-story > .container {
-    width: calc(100% - 30px) !important;
-    max-width: 390px !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-  }
-
-  .story-polaroids {
-    width: 100% !important;
-    height: 178px;
-    margin: 0 0 22px !important;
-    padding: 0 !important;
-  }
-
-  .p1 { width: 96px; height: 116px; left: 2%; top: 24px; padding: 6px 6px 20px; transform: rotate(-9deg); }
-  .p1 img { width: 84px; height: 90px; }
-
-  .p2 { width: 138px; height: 158px; left: 50%; top: 0; padding: 6px 6px 22px; transform: translateX(-50%) rotate(2deg); }
-  .p2 img { width: 126px; height: 130px; }
-
-  .p3 { width: 96px; height: 116px; right: 2%; top: 24px; padding: 6px 6px 20px; transform: rotate(9deg); }
-  .p3 img { width: 84px; height: 90px; }
-
-  .story-title {
-    font-size: 36px !important;
-    line-height: 1;
-    margin: 0 0 36px !important;
-    padding: 0 !important;
-  }
-
-  .story-timeline {
-    width: 100% !important;
-    margin: 0 !important;
-    padding-top: 0 !important;
-    padding-right: 5px !important;
-    padding-bottom: 0 !important;
-    padding-left: 38px !important;
-    box-sizing: border-box;
-  }
-
-  .timeline-line { left: 10px; top: 5px; bottom: 5px; }
-
-  .timeline-item { width: 100%; margin: 0 0 36px !important; padding: 0 !important; }
-  .timeline-item:last-child { margin-bottom: 0 !important; }
-
-  .timeline-pin { left: -37px; top: -7px; width: 18px; height: 18px; margin: 0 !important; padding: 0 !important; }
-  .timeline-pin svg { width: 16px; height: 16px; }
-
-  .timeline-date { font-size: 15px; margin: 0 0 8px !important; padding: 0 !important; }
-
-  .timeline-content p { font-size: 12px; line-height: 1.7; margin: 0 !important; padding: 0 !important; }
-
-  .story-janji {
-    margin: 34px 0 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    line-height: 0 !important;
-    font-size: 0 !important;
-    overflow: hidden !important;
-  }
-
-  .janji-img {
-    width: 100% !important;
-    max-width: none !important;
-    height: auto !important;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    vertical-align: bottom !important;
-  }
+  box-sizing: border-box !important;
 }
 
 /* ==========================================================
    SECTION 6 — DIGITAL WEDDING GIFT
+   CSS SUDAH DIRAPIKAN — TIDAK ADA RULE YANG DOBEL
 ========================================================== */
 
+/* =========================
+   SECTION
+========================= */
 .section-gift {
     position: relative;
     width: 100%;
-    padding: 55px 15px 70px;
+    padding: 90px 15px 70px !important;
     box-sizing: border-box;
     overflow: hidden;
+    background: #fffde5 !important;
 }
 
 .section-gift .container {
@@ -2181,795 +2338,519 @@ button {
     box-sizing: border-box;
 }
 
-
-/* ==========================================================
+/* =========================
    JUDUL
-========================================================== */
-
+========================= */
 .gift-title {
-    margin: 0 0 5px;
-    text-align: center;
-    font-size: 25px;
-    line-height: 1.3;
+    margin: 0 !important;
+    text-align: center !important;
+    font-family: var(--font-script), cursive !important;
+    font-size: 38px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    letter-spacing: .2px !important;
+    color: #8B174D !important;
 }
 
 .gift-subtitle {
-    margin: 0 0 18px;
-    text-align: center;
-    font-size: 13px;
-    letter-spacing: 1.5px;
+    margin: 45px 0 25px !important;
+    text-align: center !important;
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 1px !important;
+    color: #4F5638 !important;
 }
 
 .gift-thankyou {
-    width: 100%;
-    max-width: 650px;
-    margin: 0 auto 30px;
-    text-align: center;
-    font-size: 13px;
-    line-height: 1.65;
+    width: 100% !important;
+    max-width: 390px !important;
+    margin: 0 auto !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.85 !important;
+    letter-spacing: .7px !important;
+    color: #5B6046 !important;
 }
 
-
-/* ==========================================================
-   AMPLOP UTAMA
-========================================================== */
-
+/* =========================
+   AMPLOP
+   Struktur/desain TIDAK DIUBAH
+========================= */
 .gift-envelope {
     position: relative !important;
-
     width: 350px !important;
     max-width: 88vw !important;
-
     height: 290px !important;
-
-    margin: 35px auto 30px !important;
-
+    margin: 60px auto 45px !important;
     left: auto !important;
     right: auto !important;
-
     box-sizing: border-box !important;
-
     transform: none !important;
-
     isolation: isolate;
 }
 
-
-/* ==========================================================
-   BADAN AMPLOP
-========================================================== */
-
 .envelope-back {
     position: absolute !important;
-
     left: 0 !important;
     bottom: 0 !important;
-
     width: 100% !important;
     height: 200px !important;
-
     box-sizing: border-box !important;
-
-    background: #ffffff !important;
-
+    background: #68704F !important;
     border: 2px solid #4F5638 !important;
     border-top: none !important;
-
     border-radius: 0 0 8px 8px !important;
-
     z-index: 1 !important;
 }
 
-
-/* ==========================================================
-   FLAP BELAKANG
-   SEGITIGA YANG MENYATU DENGAN AMPLOP
-========================================================== */
-
 .envelope-mouth {
     position: absolute !important;
-
     left: 0 !important;
     top: -32px !important;
-
     width: 100% !important;
     height: 135px !important;
-
     box-sizing: border-box !important;
-
     background: #68704F !important;
-
-    clip-path: polygon(
-        50% 0%,
-        100% 100%,
-        0% 100%
-    ) !important;
-
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%) !important;
     border: none !important;
-
     z-index: 2 !important;
-
     pointer-events: none !important;
-
     filter:
-        drop-shadow(
-            0 1px 0 #4F5638
-        )
-        drop-shadow(
-            0 -1px 0 #4F5638
-        )
-        drop-shadow(
-            1px 0 0 #4F5638
-        )
-        drop-shadow(
-            -1px 0 0 #4F5638
-        ) !important;
+        drop-shadow(0 1px 0 #4F5638)
+        drop-shadow(0 -1px 0 #4F5638)
+        drop-shadow(1px 0 0 #4F5638)
+        drop-shadow(-1px 0 0 #4F5638) !important;
 }
-
-
-/* ==========================================================
-   KERTAS
-========================================================== */
 
 .envelope-paper {
     position: absolute !important;
-
     left: 7% !important;
     top: 8px !important;
-
     width: 86% !important;
     height: 235px !important;
-
-    padding: 35px 18px 15px !important;
-
+    padding: 32px 18px 16px !important;
     box-sizing: border-box !important;
-
     background: #ffffff !important;
-
     border-radius: 4px !important;
-
     transform: rotate(-1deg) !important;
-
     z-index: 3 !important;
-
     overflow: hidden !important;
-
-    box-shadow:
-        0 7px 16px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, .10);
+    font-family: "Patrick Hand", cursive !important;
+    color: #4F5638 !important;
 }
-
 
 .envelope-left-fold {
     position: absolute !important;
     left: 0 !important;
     bottom: 0 !important;
-
     width: 50% !important;
     height: 200px !important;
-
     background: #737A58 !important;
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 100%,
-            0 100%
-        ) !important;
-
+    clip-path: polygon(0 0, 100% 100%, 0 100%) !important;
     z-index: 4 !important;
     pointer-events: none !important;
 }
-
 
 .envelope-right-fold {
     position: absolute !important;
     right: 0 !important;
     bottom: 0 !important;
-
     width: 50% !important;
     height: 200px !important;
-
     background: #69704F !important;
-
-    clip-path:
-        polygon(
-            100% 0,
-            100% 100%,
-            0 100%
-        ) !important;
-
+    clip-path: polygon(100% 0, 100% 100%, 0 100%) !important;
     z-index: 4 !important;
     pointer-events: none !important;
 }
 
-
-/* ==========================================================
-   FLAP DEPAN
-========================================================== */
-
 .envelope-front-flap {
     position: absolute !important;
-
     left: 0 !important;
     bottom: 0 !important;
-
     width: 100% !important;
     height: 130px !important;
-
     background: #7A8060 !important;
-
-    clip-path: polygon(
-        0 100%,
-        50% 0,
-        100% 100%
-    ) !important;
-
+    clip-path: polygon(0 100%, 50% 0, 100% 100%) !important;
     z-index: 6 !important;
-
     pointer-events: none !important;
-
-    filter:
-        drop-shadow(
-            0 -2px 3px rgba(0, 0, 0, 0.15)
-        );
+    filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, .15));
 }
 
-/* ==========================================================
+/* =========================
    REKENING
-========================================================== */
-
+========================= */
 .gift-bank-entry {
     position: relative !important;
-
     display: block !important;
-
     width: 100% !important;
-
-    margin:
-        0
-        0
-        12px !important;
-
-    padding:
-        0
-        0
-        8px !important;
-
+    margin: 0 0 5px !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
-
-    border-bottom:
-        1px solid #e5e5e5 !important;
-
+    border-bottom: none !important;
     color: #333 !important;
+    transform: translateY(-18px) !important;
+    z-index: 20 !important;
 }
 
 .gift-bank-entry:last-child {
     margin-bottom: 0 !important;
-    border-bottom: none !important;
 }
-
-
-/* ==========================================================
-   BARIS BANK
-========================================================== */
 
 .gift-bank-row {
     display: flex !important;
-
     align-items: center !important;
-
     width: 100% !important;
-
-    gap: 6px !important;
-
+    gap: 8px !important;
+    margin-left: 18px !important;
     box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 20 !important;
 }
-
-
-/* ==========================================================
-   ICON
-========================================================== */
 
 .gift-card-icon {
     display: block !important;
-
     width: 19px !important;
     height: 19px !important;
-
     min-width: 19px !important;
     max-width: 19px !important;
-
     min-height: 19px !important;
     max-height: 19px !important;
-
-    flex:
-        0 0 19px !important;
-
+    flex: 0 0 19px !important;
     margin: 0 !important;
     padding: 0 !important;
-
     box-sizing: border-box !important;
-
-    color: #555 !important;
-
+    color: #4F5638 !important;
     position: relative !important;
+    z-index: 20 !important;
 }
-
-
-/*
-   Mencegah CSS global SVG
-   membesarkan icon
-*/
 
 .gift-card-icon svg {
     width: 19px !important;
     height: 19px !important;
-
     max-width: 19px !important;
     max-height: 19px !important;
 }
 
-
-/* ==========================================================
-   BANK
-========================================================== */
-
 .gift-bank-name {
     display: inline-block !important;
-
     margin: 0 !important;
     padding: 0 !important;
-
-    font-size: 13px !important;
-
-    line-height: 1.2 !important;
-
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 19px !important;
+    line-height: 1.1 !important;
     font-weight: 700 !important;
-
-    color: #222 !important;
-
+    color: #4F5638 !important;
+    letter-spacing: .3px !important;
     white-space: nowrap !important;
+    position: relative !important;
+    z-index: 20 !important;
 }
-
-
-/* ==========================================================
-   NOMOR REKENING
-========================================================== */
 
 .gift-account-number {
     display: inline-block !important;
-
     margin-left: auto !important;
-
+    margin-right: 20px !important;
     padding: 0 !important;
-
-    font-size: 9px !important;
-
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 13px !important;
     line-height: 1.2 !important;
-
-    font-weight: 600 !important;
-
-    letter-spacing: .3px !important;
-
-    color: #444 !important;
-
+    font-weight: 400 !important;
+    color: #7A174B !important;
+    letter-spacing: .8px !important;
     white-space: nowrap !important;
+    position: relative !important;
+    z-index: 20 !important;
 }
-
-
-/* ==========================================================
-   NAMA PEMILIK
-========================================================== */
 
 .gift-account-name {
-    margin:
-        4px
-        0
-        6px
-        25px !important;
-
+    margin: 5px 0 10px 27px !important;
     padding: 0 !important;
-
-    font-size: 9px !important;
-
-    line-height: 1.4 !important;
-
-    color: #777 !important;
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    font-weight: 400 !important;
+    color: #4F5638 !important;
+    letter-spacing: .5px !important;
+    position: relative !important;
+    z-index: 20 !important;
 }
-
-
-/* ==========================================================
-   BUTTON SALIN
-========================================================== */
 
 .copy-btn {
     display: inline-block !important;
-
-    margin-left: 25px !important;
-
-    padding:
-        4px
-        10px !important;
-
-    border:
-        1px solid #bcc7d5 !important;
-
-    border-radius: 20px !important;
-
-    background: #f7f9fb !important;
-
-    color: #555 !important;
-
-    font-family: inherit !important;
-
-    font-size: 9px !important;
-
+    margin-left: 27px !important;
+    padding: 4px 10px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background: #68704F !important;
+    color: #fff !important;
+    font-family: "Patrick Hand", cursive !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
     line-height: 1.2 !important;
-
     cursor: pointer !important;
-
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
+    box-shadow: none !important;
+    position: relative !important;
+    z-index: 20 !important;
 }
 
 .copy-btn:hover {
-    background: #e3eaf2 !important;
-
-    color: #222 !important;
-
-    transform: translateY(-1px);
+    background: #4F5638 !important;
+    color: #fff !important;
+    transform: none !important;
 }
 
 .copy-btn:active {
     transform: scale(.96);
 }
 
-
-/* ==========================================================
+/* =========================
    DESKTOP
-========================================================== */
-
+========================= */
 @media (min-width: 601px) {
-
     .gift-envelope {
         width: 380px !important;
         height: 315px !important;
     }
 
-
     .envelope-back {
         height: 215px !important;
     }
 
-
-    /*
-       FLAP BELAKANG DESKTOP
-
-       Dibuat overlap dengan badan
-       supaya tidak terlihat terpisah.
-    */
     .envelope-mouth {
         top: -42px !important;
-
         height: 155px !important;
     }
 
-
     .envelope-paper {
-        top: 8px !important;
-
         height: 255px !important;
-
-        padding:
-            38px
-            22px
-            20px !important;
+        padding: 38px 22px 20px !important;
     }
-
 
     .envelope-left-fold,
     .envelope-right-fold {
         height: 215px !important;
     }
-
 
     .envelope-front-flap {
         height: 140px !important;
     }
 
-
     .gift-card-icon {
         width: 20px !important;
         height: 20px !important;
-
         min-width: 20px !important;
         max-width: 20px !important;
-
         min-height: 20px !important;
         max-height: 20px !important;
-
         flex-basis: 20px !important;
     }
 
+    .gift-card-icon svg {
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
+        max-height: 20px !important;
+    }
 
     .gift-bank-name {
-        font-size: 14px !important;
+        font-size: 19px !important;
     }
-
 
     .gift-account-number {
-        font-size: 10px !important;
-    }
-
-
-    .gift-account-name {
-        margin-left: 27px !important;
-        font-size: 10px !important;
-    }
-
-
-    .copy-btn {
-        margin-left: 27px !important;
+        font-size: 13px !important;
     }
 }
 
-
-/* ==========================================================
+/* =========================
    MOBILE
-========================================================== */
-
+========================= */
 @media (max-width: 600px) {
-
     .section-gift {
-        padding:
-            50px
-            15px
-            60px;
+        padding: 80px 15px 65px !important;
     }
-
 
     .gift-title {
-        font-size: 23px;
+        font-size: 35px !important;
     }
-
 
     .gift-subtitle {
-        font-size: 12px;
-
-        margin-bottom: 15px;
+        margin-top: 40px !important;
+        margin-bottom: 24px !important;
+        font-size: 18px !important;
     }
-
 
     .gift-thankyou {
-        max-width: 340px;
-
-        margin-bottom: 25px;
-
-        font-size: 12px;
-
-        line-height: 1.6;
+        max-width: 370px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 15px !important;
+        line-height: 1.85 !important;
     }
-
-
-    /* ==============================================
-       AMPLOP
-    ============================================== */
 
     .gift-envelope {
         width: 350px !important;
-
         max-width: 88vw !important;
-
         height: 290px !important;
-
-        margin-left: auto !important;
-        margin-right: auto !important;
-
-        margin-top: 25px !important;
+        margin: 60px auto 40px !important;
     }
-
-
-    /* ==============================================
-       BADAN AMPLOP
-    ============================================== */
 
     .envelope-back {
         height: 200px !important;
-
         border: none !important;
+        background: linear-gradient(
+            135deg,
+            #c0ccd9 0%,
+            #e2e8ef 50%,
+            #b7c4d3 100%
+        ) !important;
     }
-
-
-    /* ==============================================
-       FLAP BELAKANG
-
-       Ujungnya keluar ke atas kertas,
-       bagian bawahnya menyatu dengan badan.
-    ============================================== */
 
     .envelope-mouth {
         top: -30px !important;
-
         height: 125px !important;
-
-        background:
-            linear-gradient(
-                135deg,
-                #c0ccd9 0%,
-                #e2e8ef 50%,
-                #b7c4d3 100%
-            ) !important;
-
-        clip-path:
-            polygon(
-                50% 0%,
-                100% 100%,
-                0% 100%
-            ) !important;
-
-        z-index: 2 !important;
+        background: linear-gradient(
+            135deg,
+            #c0ccd9 0%,
+            #e2e8ef 50%,
+            #b7c4d3 100%
+        ) !important;
     }
-
-
-    /* ==============================================
-       KERTAS
-    ============================================== */
 
     .envelope-paper {
         left: 7% !important;
-
         top: 8px !important;
-
         width: 86% !important;
-
         height: 235px !important;
-
-        padding:
-            35px
-            18px
-            15px !important;
-
-        transform:
-            rotate(-1deg) !important;
-
-        z-index: 3 !important;
+        padding: 32px 18px 16px !important;
+        transform: rotate(-1deg) !important;
     }
-
-
-    /* ==============================================
-       LIPATAN
-    ============================================== */
 
     .envelope-left-fold,
     .envelope-right-fold {
         height: 200px !important;
     }
-
-
-    /* ==============================================
-       FLAP DEPAN
-    ============================================== */
 
     .envelope-front-flap {
         height: 130px !important;
     }
 
-
-    /* ==============================================
-       ICON
-    ============================================== */
-
     .gift-card-icon {
         width: 19px !important;
         height: 19px !important;
-
         min-width: 19px !important;
         max-width: 19px !important;
-
         min-height: 19px !important;
         max-height: 19px !important;
-
         flex-basis: 19px !important;
     }
 
+    .gift-card-icon svg {
+        width: 19px !important;
+        height: 19px !important;
+        max-width: 19px !important;
+        max-height: 19px !important;
+    }
 
-    /* ==============================================
-       REKENING
-    ============================================== */
+    .gift-bank-entry {
+        margin-bottom: 3px !important;
+        transform: translateY(-12px) !important;
+    }
+
+    .gift-bank-row {
+        margin-left: 16px !important;
+    }
 
     .gift-bank-name {
-        font-size: 13px !important;
+        font-size: 17px !important;
     }
-
 
     .gift-account-number {
-        font-size: 9px !important;
+        font-size: 11px !important;
+        letter-spacing: .6px !important;
+        margin-left: auto !important;
+        margin-right: 20px !important;
     }
-
 
     .gift-account-name {
-        margin:
-            4px
-            0
-            6px
-            25px !important;
-
-        font-size: 9px !important;
+        margin-left: 41px !important;
+        margin-right: 30px !important;
+        font-size: 10px !important;
     }
 
-
     .copy-btn {
-        margin-left: 25px !important;
-
-        padding:
-            4px
-            10px !important;
-
+        margin-left: 41px !important;
+        padding: 4px 9px !important;
         font-size: 9px !important;
     }
 }
 
-
-/* ==========================================================
+/* =========================
    HP KECIL
-========================================================== */
-
+========================= */
 @media (max-width: 380px) {
+    .section-gift {
+        padding-top: 70px !important;
+    }
+
+    .gift-title {
+        font-size: 32px !important;
+    }
+
+    .gift-subtitle {
+        margin-top: 35px !important;
+        font-size: 17px !important;
+    }
+
+    .gift-thankyou {
+        font-size: 14px !important;
+        line-height: 1.8 !important;
+    }
 
     .gift-envelope {
         width: 320px !important;
-
         max-width: 86vw !important;
-
         height: 270px !important;
+        margin-top: 50px !important;
     }
-
 
     .envelope-back {
         height: 185px !important;
     }
 
-
     .envelope-mouth {
         top: -28px !important;
-
         height: 115px !important;
     }
 
-
     .envelope-paper {
         height: 220px !important;
-
-        padding:
-            32px
-            15px
-            12px !important;
+        padding: 28px 15px 14px !important;
     }
-
 
     .envelope-left-fold,
     .envelope-right-fold {
         height: 185px !important;
     }
 
-
     .envelope-front-flap {
         height: 120px !important;
     }
 
-
     .gift-bank-name {
-        font-size: 12px !important;
+        font-size: 17px !important;
     }
-
 
     .gift-account-number {
-        font-size: 8px !important;
+        font-size: 10px !important;
     }
 }
-
 /* === SECTION 7: RSVP ===
    Slide ini tidak boleh "dikecilkan" oleh fit-scale.
    Kontennya dibuat scroll internal agar tetap terbaca di layar kecil. */
@@ -3002,9 +2883,12 @@ button {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
-  padding: 46px 22px 44px;
+  padding: 34px 22px 30px;
 
   box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .section-rsvp > .container::-webkit-scrollbar {
@@ -3025,10 +2909,12 @@ button {
 }
 
 .rsvp-subtitle {
-  font-size: 13px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 15px;
   color: var(--text-medium);
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   line-height: 1.8;
+  font-weight: 400;
 }
 
 .rsvp-form-card {
@@ -3151,25 +3037,30 @@ button {
   transform: translateY(0);
 }
 
-/* Guest Wall */
+/* Guest Wall: mengisi sisa satu layar, selisihnya diserap kolom ucapan */
 .guest-wall {
-  margin-top: 32px;
+  margin-top: 14px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .wall-title {
   font-family: var(--font-script);
-  font-size: 24px;
+  font-size: 21px;
   color: var(--wine);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .wall-count {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--olive);
   background: rgba(124, 138, 93, 0.12);
@@ -3177,17 +3068,25 @@ button {
   padding: 2px 10px;
 }
 
-/* Daftar pesan mengalir di dalam scroll container slide RSVP */
-/* Daftar pesan: dibatasi agar tidak melebihi satu layar.
-   Scroll-nya internal di dalam kolom ini, bukan bikin halaman kepanjangan. */
+/* Daftar pesan: satu layar, scroll di dalam kolom ini */
 .section-rsvp .wall-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-height: calc(100dvh - 300px);
-  min-height: 140px;
+  flex: 1;
+  min-height: 0;
+  gap: 10px;
   overflow-y: auto;
-  padding: 6px;
+  padding: 4px 4px 8px;
+  scrollbar-width: thin;
+}
+
+.section-rsvp .wall-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.section-rsvp .wall-list::-webkit-scrollbar-thumb {
+  background: rgba(107, 20, 54, 0.3);
+  border-radius: 4px;
 }
 
 .wall-empty {
@@ -3201,11 +3100,12 @@ button {
 .wall-message {
   background: var(--white);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 10px 14px;
   box-shadow: var(--shadow-soft);
   text-align: left;
   border-left: 3px solid var(--wine);
   animation: slideInMsg 0.4s ease;
+  flex-shrink: 0;
 }
 
 @keyframes slideInMsg {
@@ -3213,41 +3113,53 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Baris 1: nama + status di kiri, waktu di pojok kanan */
 .wall-message-head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.wall-message-id {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 
 .wall-message-name {
   font-family: var(--font-hand);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--wine);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 .wall-message-time {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-light);
   white-space: nowrap;
+  margin-left: auto;
 }
 
 .wall-message .wall-message-status {
   display: inline-block;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--olive);
   background: rgba(124, 138, 93, 0.12);
   border-radius: 20px;
-  padding: 2px 10px;
-  margin-bottom: 8px;
+  padding: 1px 8px;
+  white-space: nowrap;
 }
 
 .wall-message-text {
   font-size: 13px;
   color: var(--text-medium);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* =====================================================
@@ -3674,3 +3586,146 @@ html, body {
   justify-content: center;
 }
 
+
+/* =========================================================
+   TAMBAHAN: UNIFIKASI TAMPILAN & RESPONSIVE
+   (rule terakhir supaya semua section konsisten di
+    semua perangkat, meng-override gaya lama)
+   ========================================================= */
+
+/* ---- 1) Lebar konten seragam (phone-width) di semua section ---- */
+.section-ayat .container,
+.section-profil .container,
+.section-date .container,
+.section-venue .container,
+.section-story > .container,
+.section-gift .container,
+.countdown-container {
+  width: 100% !important;
+  max-width: 440px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  box-sizing: border-box !important;
+}
+
+/* ---- 2) Padding vertikal seragam antar section ---- */
+.section-ayat {
+  padding-top: clamp(28px, 7vh, 52px) !important;
+  padding-bottom: clamp(28px, 7vh, 52px) !important;
+}
+.section-profil {
+  padding-top: clamp(28px, 7vh, 52px) !important;
+  padding-bottom: clamp(28px, 7vh, 52px) !important;
+}
+.section-venue {
+  padding-top: clamp(16px, 5vh, 32px) !important;
+  padding-bottom: clamp(32px, 8vh, 64px) !important;
+}
+.section-gift {
+  padding-top: clamp(36px, 8vh, 60px) !important;
+  padding-bottom: clamp(40px, 9vh, 60px) !important;
+}
+.countdown-section {
+  padding-top: clamp(32px, 8vh, 56px) !important;
+  padding-bottom: clamp(32px, 8vh, 56px) !important;
+}
+
+/* ---- 3) Judul utama seragam (font, warna, ukuran, jarak) ---- */
+.venue-title,
+.story-title,
+.gift-title {
+  font-family: var(--font-script) !important;
+  font-size: clamp(34px, 9vw, 46px) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: var(--wine) !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  margin: 0 0 clamp(14px, 4vh, 26px) !important;
+}
+
+/* Judul RSVP: gaya font/warna disamakan, tapi ukuran & jarak dipertahankan
+   agar tetap muat dalam satu layar */
+.rsvp-title {
+  font-family: var(--font-script) !important;
+  color: var(--wine) !important;
+  letter-spacing: 0 !important;
+}
+
+/* Judul display besar (save the date & countdown) disamakan gaya font/warnanya,
+   ukurannya tetap besar sesuai peran tiap halaman */
+.save-the-date-title,
+.countdown-title {
+  font-family: var(--font-script) !important;
+  color: var(--wine) !important;
+  letter-spacing: 0 !important;
+}
+
+/* ---- 4) Teks intro/paragraph seragam (Patrick Hand, 15px) ---- */
+.profil-intro,
+.rsvp-subtitle,
+.gift-thankyou {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  color: var(--text-medium) !important;
+  line-height: 1.8 !important;
+  margin-bottom: 22px !important;
+}
+
+/* Label kecil "#Gifts" - jarak konsisten */
+.gift-subtitle {
+  margin-top: clamp(10px, 3vh, 18px) !important;
+  margin-bottom: clamp(14px, 4vh, 24px) !important;
+}
+
+/* ---- 5) Anti-meluber teks panjang di layar kecil ---- */
+.section-venue .venue-address,
+.section-story .timeline-content p,
+.section-gift .gift-thankyou,
+.section-profil .profil-address span,
+.countdown-section .countdown-date,
+.wall-message-text {
+  overflow-wrap: anywhere !important;
+}
+
+/* ---- 6) Ilustrasi/foto tidak melebihi lebar konten ---- */
+.venue-lampu,
+.venue-mejamakan,
+.disco-ball-img,
+.countdown-ring,
+.profil-akar,
+.ayat-akar {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ---- 7) Layar sangat kecil (<360px): sedikit mengecilkan agar tetap muat ---- */
+@media (max-width: 360px) {
+  .save-date-scene { max-width: 100% !important; }
+  .gift-envelope { max-width: 86vw !important; }
+  .countdown-item { min-width: 46px !important; }
+}
+
+/* ---- 8) OUR STORY: responsive muat satu layar ----
+   Judul dibuat ringkas & jaraknya menyesuaikan layar agar
+   konten (polaroid + timeline + ilustrasi janji) tetap utuh
+   dalam satu layar tanpa scroll di semua perangkat. */
+.section-story .story-title {
+  font-size: clamp(26px, 8vw, 42px) !important;
+  line-height: 1.1 !important;
+  margin: clamp(14px, 3vh, 22px) 0 clamp(8px, 2vh, 14px) !important;
+}
+
+/* Layar sangat kecil: rapatkan teks timeline agar tidak menekan janji */
+@media (max-width: 360px) {
+  .section-story .timeline-content p {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+  }
+  .section-story .story-polaroids {
+    height: 118px !important;
+  }
+}
