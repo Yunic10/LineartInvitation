@@ -2378,111 +2378,244 @@ button {
     color: #5B6046 !important;
 }
 
-/* =========================
-   AMPLOP
-   Struktur/desain TIDAK DIUBAH
-========================= */
+/* =========================================
+   FIX FINAL LAYER AMPLOP
+========================================= */
+
 .gift-envelope {
     position: relative !important;
-    width: 350px !important;
-    max-width: 88vw !important;
+    width: min(350px, 100%) !important;
+    max-width: 100% !important;
     height: 290px !important;
+
     margin: 60px auto 45px !important;
-    left: auto !important;
-    right: auto !important;
+    padding: 0 !important;
+
     box-sizing: border-box !important;
+
+    overflow: visible !important;
+
+    isolation: isolate !important;
+
     transform: none !important;
-    isolation: isolate;
 }
 
-.envelope-back {
+
+/* =========================
+   BADAN HIJAU
+========================= */
+
+.gift-envelope > .envelope-back {
     position: absolute !important;
+
     left: 0 !important;
     bottom: 0 !important;
+
     width: 100% !important;
     height: 200px !important;
-    box-sizing: border-box !important;
+
     background: #68704F !important;
+
     border: 2px solid #4F5638 !important;
     border-top: none !important;
+
     border-radius: 0 0 8px 8px !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
     z-index: 1 !important;
 }
 
-.envelope-mouth {
+
+/* =========================
+   SEGITIGA ATAS
+========================= */
+
+.gift-envelope > .envelope-mouth {
     position: absolute !important;
+
     left: 0 !important;
-    top: -32px !important;
+    top: -45px !important;
+
     width: 100% !important;
     height: 135px !important;
-    box-sizing: border-box !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
     background: #68704F !important;
-    clip-path: polygon(50% 0%, 100% 100%, 0% 100%) !important;
+    background-color: #68704F !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    clip-path: polygon(
+        50% 0%,
+        100% 100%,
+        0% 100%
+    ) !important;
+
+    -webkit-clip-path: polygon(
+        50% 0%,
+        100% 100%,
+        0% 100%
+    ) !important;
+
     border: none !important;
+
+    filter: none !important;
+    mix-blend-mode: normal !important;
+
+    transform: none !important;
+
     z-index: 2 !important;
+
     pointer-events: none !important;
-    filter:
-        drop-shadow(0 1px 0 #4F5638)
-        drop-shadow(0 -1px 0 #4F5638)
-        drop-shadow(1px 0 0 #4F5638)
-        drop-shadow(-1px 0 0 #4F5638) !important;
 }
 
-.envelope-paper {
+
+/* MATIKAN SEMUA PSEUDO */
+.gift-envelope > .envelope-mouth::before,
+.gift-envelope > .envelope-mouth::after {
+    display: none !important;
+    content: none !important;
+}
+
+
+/* =========================
+   KERTAS PUTIH
+========================= */
+
+.gift-envelope > .envelope-paper {
     position: absolute !important;
+
     left: 7% !important;
     top: 8px !important;
+
     width: 86% !important;
     height: 235px !important;
+
+    margin: 0 !important;
+
     padding: 32px 18px 16px !important;
-    box-sizing: border-box !important;
+
     background: #ffffff !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
     border-radius: 4px !important;
+
+    box-sizing: border-box !important;
+
     transform: rotate(-1deg) !important;
+
     z-index: 3 !important;
+
     overflow: hidden !important;
-    box-shadow: 0 7px 16px rgba(0, 0, 0, .10);
-    font-family: "Patrick Hand", cursive !important;
-    color: #4F5638 !important;
+
+    box-shadow: 0 7px 16px rgba(0,0,0,.10) !important;
 }
 
-.envelope-left-fold {
+
+/* =========================
+   LIPATAN KIRI
+========================= */
+
+.gift-envelope > .envelope-left-fold {
     position: absolute !important;
+
     left: 0 !important;
     bottom: 0 !important;
+
     width: 50% !important;
     height: 200px !important;
+
     background: #737A58 !important;
-    clip-path: polygon(0 0, 100% 100%, 0 100%) !important;
+
+    clip-path: polygon(
+        0 0,
+        100% 100%,
+        0 100%
+    ) !important;
+
+    -webkit-clip-path: polygon(
+        0 0,
+        100% 100%,
+        0 100%
+    ) !important;
+
     z-index: 4 !important;
+
     pointer-events: none !important;
 }
 
-.envelope-right-fold {
+
+/* =========================
+   LIPATAN KANAN
+========================= */
+
+.gift-envelope > .envelope-right-fold {
     position: absolute !important;
+
     right: 0 !important;
     bottom: 0 !important;
+
     width: 50% !important;
     height: 200px !important;
+
     background: #69704F !important;
-    clip-path: polygon(100% 0, 100% 100%, 0 100%) !important;
+
+    clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+    ) !important;
+
+    -webkit-clip-path: polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+    ) !important;
+
     z-index: 4 !important;
+
     pointer-events: none !important;
 }
 
-.envelope-front-flap {
+
+/* =========================
+   FLAP DEPAN
+========================= */
+
+.gift-envelope > .envelope-front-flap {
     position: absolute !important;
+
     left: 0 !important;
     bottom: 0 !important;
+
     width: 100% !important;
     height: 130px !important;
-    background: #7A8060 !important;
-    clip-path: polygon(0 100%, 50% 0, 100% 100%) !important;
-    z-index: 6 !important;
-    pointer-events: none !important;
-    filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, .15));
-}
 
+    background: #7A8060 !important;
+
+    clip-path: polygon(
+        0 100%,
+        50% 0,
+        100% 100%
+    ) !important;
+
+    -webkit-clip-path: polygon(
+        0 100%,
+        50% 0,
+        100% 100%
+    ) !important;
+
+    z-index: 6 !important;
+
+    pointer-events: none !important;
+}
 /* =========================
    REKENING
 ========================= */
@@ -2695,8 +2828,8 @@ button {
     }
 
     .gift-envelope {
-        width: 350px !important;
-        max-width: 88vw !important;
+        width: min(350px, 100%) !important;
+        max-width: 100% !important;
         height: 290px !important;
         margin: 60px auto 40px !important;
     }
@@ -2713,8 +2846,8 @@ button {
     }
 
     .envelope-mouth {
-        top: -30px !important;
-        height: 125px !important;
+        top: -45px !important;
+        height: 135px !important;
         background: linear-gradient(
             135deg,
             #c0ccd9 0%,
@@ -2814,19 +2947,19 @@ button {
     }
 
     .gift-envelope {
-        width: 320px !important;
-        max-width: 86vw !important;
+        width: min(320px, 100%) !important;
+        max-width: 100% !important;
         height: 270px !important;
         margin-top: 50px !important;
     }
 
     .envelope-back {
-        height: 185px !important;
+        height: 186px !important;
     }
 
     .envelope-mouth {
-        top: -28px !important;
-        height: 115px !important;
+        top: -42px !important;
+        height: 126px !important;
     }
 
     .envelope-paper {
